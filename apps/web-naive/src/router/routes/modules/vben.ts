@@ -1,14 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import {
-  VBEN_ANT_PREVIEW_URL,
-  VBEN_DOC_URL,
-  VBEN_ELE_PREVIEW_URL,
-  VBEN_GITHUB_URL,
-  VBEN_LOGO_URL,
-} from '@vben/constants';
+import { VBEN_LOGO_URL } from '@vben/constants';
 
-import { BasicLayout, IFrameView } from '#/layouts';
+import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
 
 const routes: RouteRecordRaw[] = [
@@ -35,41 +29,10 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'VbenDocument',
         path: '/vben-admin/document',
-        component: IFrameView,
+        component: () => import('#/views/fuzz/open/index.vue'),
         meta: {
           icon: 'lucide:book-open-text',
-          link: VBEN_DOC_URL,
           title: $t('page.vben.document'),
-        },
-      },
-      {
-        name: 'VbenGithub',
-        path: '/vben-admin/github',
-        component: IFrameView,
-        meta: {
-          icon: 'mdi:github',
-          link: VBEN_GITHUB_URL,
-          title: 'Github',
-        },
-      },
-      {
-        name: 'VbenAntd',
-        path: '/vben-admin/antd',
-        component: IFrameView,
-        meta: {
-          badgeType: 'dot',
-          link: VBEN_ANT_PREVIEW_URL,
-          title: $t('page.vben.antdv'),
-        },
-      },
-      {
-        name: 'VbenElementPlus',
-        path: '/vben-admin/ele',
-        component: IFrameView,
-        meta: {
-          badgeType: 'dot',
-          link: VBEN_ELE_PREVIEW_URL,
-          title: $t('page.vben.element-plus'),
         },
       },
     ],
