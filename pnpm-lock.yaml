@@ -243,6 +243,9 @@ importers:
       element-plus:
         specifier: ^2.8.1
         version: 2.8.1(vue@3.4.38(typescript@5.5.4))
+      lucide-vue-next:
+        specifier: ^0.436.0
+        version: 0.436.0(vue@3.4.38(typescript@5.5.4))
       pinia:
         specifier: 2.2.2
         version: 2.2.2(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))

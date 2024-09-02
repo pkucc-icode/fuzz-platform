@@ -19,6 +19,12 @@
       "antdv": "Ant Design Vue 版本",
       "naive-ui": "Naive UI 版本",
       "element-plus": "Element Plus 版本"
+    },
+    "fuzz": {
+      "title": "新建任务",
+      "open": "源码 Fuzz",
+      "web": "Web Fuzz",
+      "close": "闭源 Fuzz"
     }
   },
   "common": {
