@@ -21,6 +21,7 @@ import {
 import { Plus, Trash } from 'lucide-vue-next';
 
 import { openFuzz } from '#/api';
+import { router } from '#/router';
 
 interface FuzzCommand {
   key: number;
@@ -75,6 +76,7 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         loading.value = false;
       }
       ElMessage.success('操作成功');
+      router.push("/project")
     } else {
       console.error('error submit!', fields);
       ElMessage.error('提交失败');

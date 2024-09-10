@@ -42,3 +42,7 @@ export async function webFuzz(data: FuzzApi.FuzzParams) {
 export async function closeFuzz(data: FuzzApi.FuzzParams) {
   return requestClient.post<FuzzApi.FuzzResult>('/fuzz/close', data);
 }
+
+export async function getProjects(){
+  return requestClient.get('/fuzz/get-projects');
+}

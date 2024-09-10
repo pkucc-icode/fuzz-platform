@@ -8,12 +8,7 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
 
-  const { name } = await readBody(event);
-  const project = await prisma.project.create({
-    data: {
-      name
-    },
-  })
+  const projects = await prisma.project.findMany()
 
-  return useResponseSuccess(project);
+  return useResponseSuccess(projects);
 });

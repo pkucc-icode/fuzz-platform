@@ -19,8 +19,6 @@ const routes: RouteRecordRaw[] = [
         path: '/project',
         component: () => import('#/views/project/index.vue'),
         meta: {
-          affixTab: true,
-          hideInMenu: true, // 不在菜单中显示
           title: $t('page.project.title'),
         },
       },
