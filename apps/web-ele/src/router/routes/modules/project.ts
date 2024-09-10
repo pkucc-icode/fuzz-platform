@@ -22,6 +22,15 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.project.title'),
         },
       },
+      {
+        name: 'ProjectDetail',
+        path: '/project-detail',
+        component: () => import('#/views/project-detail/index.vue'),
+        meta: {
+          hideInMenu: true,
+          title: $t('page.project.detail'),
+        },
+      },
     ],
   },
 ];

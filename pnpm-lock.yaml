@@ -160,6 +160,12 @@ importers:
 
   apps/web-ele:
     dependencies:
+      '@radix-icons/vue':
+        specifier: ^1.0.0
+        version: 1.0.0(vue@3.4.38(typescript@5.5.4))
+      '@tanstack/vue-table':
+        specifier: ^8.20.5
+        version: 8.20.5(vue@3.4.38(typescript@5.5.4))
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -3706,6 +3712,10 @@ packages:
   '@tanstack/store@0.5.5':
     resolution: {integrity: sha512-EOSrgdDAJExbvRZEQ/Xhh9iZchXpMN+ga1Bnk8Nmygzs8TfiE6hbzThF+Pr2G19uHL6+DTDTHhJ8VQiOd7l4tA==}
 
+  '@tanstack/table-core@8.20.5':
+    resolution: {integrity: sha512-P9dF7XbibHph2PFRz8gfBKEXEY/HJPOhym8CHmjF8y3q5mWpKx9xtZapXQUWCgkqvsK0R46Azuz+VaxD4Xl+Tg==}
+    engines: {node: '>=12'}
+
   '@tanstack/virtual-core@3.9.0':
     resolution: {integrity: sha512-Saga7/QRGej/IDCVP5BgJ1oDqlDT2d9rQyoflS3fgMS8ntJ8JGw/LBqK2GorHa06+VrNFc0tGz65XQHJQJetFQ==}
 
@@ -3717,6 +3727,12 @@ packages:
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
+
+  '@tanstack/vue-table@8.20.5':
+    resolution: {integrity: sha512-2xixT3BEgSDw+jOSqPt6ylO/eutDI107t2WdFMVYIZZ45UmTHLySqNriNs0+dMaKR56K5z3t+97P6VuVnI2L+Q==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      vue: 3.4.38
 
   '@tanstack/vue-virtual@3.9.0':
     resolution: {integrity: sha512-MVJhQh57OR3wg2pWL/25IN1/nITFNnpFaz4gOvRCqnxhsH0WRePBBKvixOaFTgiyYfmrjFbb4d0nRMTvsjZZdQ==}
@@ -12331,6 +12347,8 @@ snapshots:
 
   '@tanstack/store@0.5.5': {}
 
+  '@tanstack/table-core@8.20.5': {}
+
   '@tanstack/virtual-core@3.9.0': {}
 
   '@tanstack/vue-store@0.5.5(vue@3.4.38(typescript@5.5.4))':
@@ -12338,6 +12356,11 @@ snapshots:
       '@tanstack/store': 0.5.5
       vue: 3.4.38(typescript@5.5.4)
       vue-demi: 0.14.10(vue@3.4.38(typescript@5.5.4))
+
+  '@tanstack/vue-table@8.20.5(vue@3.4.38(typescript@5.5.4))':
+    dependencies:
+      '@tanstack/table-core': 8.20.5
+      vue: 3.4.38(typescript@5.5.4)
 
   '@tanstack/vue-virtual@3.9.0(vue@3.4.38(typescript@5.5.4))':
     dependencies:

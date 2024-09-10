@@ -29,7 +29,7 @@ import { preferences } from '@vben/preferences';
 import { useUserStore } from '@vben/stores';
 
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
-import ProjectTable from './project-table.vue'
+import ProjectTable from './project-table/index.vue'
 
 const userStore = useUserStore();
 

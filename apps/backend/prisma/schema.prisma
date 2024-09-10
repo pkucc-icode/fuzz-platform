@@ -10,20 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String
   password String
   projects Project[]
-
 }
 
 model Project {
-  id        Int     @id @default(autoincrement())
-  name     String
+  id        Int      @id @default(autoincrement())
+  name      String
   repoUrl   String?
+  startTime DateTime @default(now())
+  bugs      Int?     @default(0)
+  status    Int?     @default(0)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
 }
