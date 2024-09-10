@@ -47,7 +47,7 @@ export const columns: ColumnDef<Project>[] = [
   {
     accessorKey: 'bugs',
     cell: ({ row }) => {
-      return h('div', { class: 'text-center font-medium' }, row.getValue('bugs'));
+      return h('div', { class: 'font-medium' }, row.getValue('bugs'));
     },
     header: ({ column }) =>
       h(ColumnHeader, {

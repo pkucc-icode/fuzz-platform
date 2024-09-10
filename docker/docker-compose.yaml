@@ -1,0 +1,22 @@
+networks:
+  fba_network:
+    external: true
+    
+services:
+  db:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
+    networks:
+      - fba_network
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=changethis
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=app
+
+volumes:
+  app-db-data:

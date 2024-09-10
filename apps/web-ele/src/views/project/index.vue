@@ -71,11 +71,11 @@ const overviewItems: AnalysisOverviewItem[] = [
   <div class="p-5">
     <AnalysisOverview :items="overviewItems" />
 
-    <div class="mt-5 flex flex-col lg:flex-row">
-      <div class="mr-4 w-full lg:w-3/5">
+    <div class="mt-5 flex flex-col">
+      <div class="mb-4 w-full">
         <ProjectTable />
       </div>
-      <div class="w-full lg:w-2/5">
+      <div class="w-full">
         <AnalysisChartCard title="漏洞类型分布">
           <AnalyticsVisitsSource />
         </AnalysisChartCard>
