@@ -1,21 +1,9 @@
 <script lang="ts" setup>
-import type {
-  WorkbenchProjectItem,
-  WorkbenchQuickNavItem,
-  WorkbenchTodoItem,
-  WorkbenchTrendItem,
-} from '@vben/common-ui';
-
-import { ref } from 'vue';
 
 import {
   AnalysisChartCard,
-  WorkbenchHeader,
-  WorkbenchProject,
-  WorkbenchQuickNav,
-  WorkbenchTodo,
-  WorkbenchTrends,
   AnalysisOverview,
+  type AnalysisOverviewItem,
 } from '@vben/common-ui';
 
 import {
@@ -25,14 +13,8 @@ import {
   SvgDownloadIcon,
 } from '@vben/icons';
 
-import { preferences } from '@vben/preferences';
-import { useUserStore } from '@vben/stores';
-
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
 import ProjectTable from './project-table/index.vue'
-
-const userStore = useUserStore();
-
 
 const overviewItems: AnalysisOverviewItem[] = [
   {

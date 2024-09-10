@@ -7,21 +7,12 @@ const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
-      icon: 'ant-design:bar-chart-outlined',
       order: -99,
       title: $t('page.project.title'),
     },
-    name: 'project',
-    path: '/project',
+    name: 'Project',
+    path: '/',
     children: [
-      {
-        name: 'Project',
-        path: '/project',
-        component: () => import('#/views/project/index.vue'),
-        meta: {
-          title: $t('page.project.title'),
-        },
-      },
       {
         name: 'ProjectDetail',
         path: '/project-detail',

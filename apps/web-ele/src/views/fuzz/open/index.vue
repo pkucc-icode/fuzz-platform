@@ -76,7 +76,7 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         loading.value = false;
       }
       ElMessage.success('操作成功');
-      router.push("/project")
+      router.push("/analytics")
     } else {
       console.error('error submit!', fields);
       ElMessage.error('提交失败');
