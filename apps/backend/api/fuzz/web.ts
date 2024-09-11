@@ -7,7 +7,5 @@ export default eventHandler((event) => {
     return unAuthorizedResponse(event);
   }
 
-  return useResponseSuccess({
-    res: 'oo',
-  });
+  return useResponseSuccess("OK");
 });

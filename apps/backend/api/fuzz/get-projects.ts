@@ -8,7 +8,11 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
 
-  const projects = await prisma.project.findMany()
+  const projects = await prisma.project.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
 
   return useResponseSuccess(projects);
 });

@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
         path: '/fuzz-admin/fuzz-open',
         component: () => import('#/views/fuzz/open/index.vue'),
         meta: {
-          icon: 'lucide:copyright',
+          icon: 'lucide:book-open-text',
           title: $t('page.fuzz.open'),
         },
       },
@@ -31,7 +31,7 @@ const routes: RouteRecordRaw[] = [
         path: '/fuzz-admin/fuzz-web',
         component: () => import('#/views/fuzz/web/index.vue'),
         meta: {
-          icon: 'lucide:book-open-text',
+          icon: 'lucide:circle-dot',
           title: $t('page.fuzz.web'),
         },
       },
@@ -40,7 +40,7 @@ const routes: RouteRecordRaw[] = [
         path: '/fuzz-admin/fuzz-close',
         component: () => import('#/views/fuzz/close/index.vue'),
         meta: {
-          icon: 'lucide:book-open-text',
+          icon: 'lucide:copyright',
           title: $t('page.fuzz.close'),
         },
       },

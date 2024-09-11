@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@prisma/client": "5.19.1",
+    "@types/formidable": "^3.4.5",
+    "formidable": "^3.5.1",
     "jsonwebtoken": "^9.0.2",
     "nitropack": "^2.9.7"
   },

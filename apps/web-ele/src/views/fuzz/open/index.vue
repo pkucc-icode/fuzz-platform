@@ -130,7 +130,7 @@ const fileList = ref<UploadUserFile[]>([]);
             <ElFormItem label="or">
               <ElUpload
                 v-model:file-list="fileList"
-                action="/upload"
+                action="/api/upload"
                 class="upload-demo"
               >
                 <ElButton color="#626aef" type="primary">点击上传代码</ElButton>

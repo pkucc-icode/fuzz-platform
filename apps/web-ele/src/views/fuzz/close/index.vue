@@ -12,13 +12,11 @@ import {
   ElInput,
   ElMessage,
   ElRow,
-  ElSpace,
   ElUpload,
   type FormInstance,
   type FormRules,
   type UploadUserFile,
 } from 'element-plus';
-import { Plus, Trash } from 'lucide-vue-next';
 
 import { openFuzz } from '#/api';
 import { router } from '#/router';
@@ -89,20 +87,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
-const removeCommand = (item: FuzzCommand) => {
-  const index = form.fuzzCommands.indexOf(item);
-  if (index !== -1) {
-    form.fuzzCommands.splice(index, 1);
-  }
-};
-
-const addCommand = () => {
-  form.fuzzCommands.push({
-    key: Date.now(),
-    value: '',
-  });
-};
-
 const fileList = ref<UploadUserFile[]>([]);
 </script>
 
@@ -121,65 +105,14 @@ const fileList = ref<UploadUserFile[]>([]);
             <ElFormItem label="项目名" prop="name">
               <ElInput v-model="form.name" placeholder="请输入项目名" />
             </ElFormItem>
-            <ElFormItem label="项目代码" prop="repoUrl">
-              <ElInput
-                v-model="form.repoUrl"
-                placeholder="请输入代码仓库地址"
-              />
-            </ElFormItem>
-            <ElFormItem label="or">
+            <ElFormItem label="项目文件">
               <ElUpload
                 v-model:file-list="fileList"
                 action="/upload"
                 class="upload-demo"
               >
-                <ElButton color="#626aef" type="primary">点击上传代码</ElButton>
+                <ElButton color="#626aef" type="primary">点击上传</ElButton>
               </ElUpload>
-            </ElFormItem>
-            <ElFormItem label="编译器">
-              <ElInput
-                v-model="form.compiler"
-                placeholder="Default llvm-clang"
-              />
-            </ElFormItem>
-          </ElCol>
-
-          <ElCol :span="12">
-            <ElFormItem label="默认编译配置">
-              <ElInput
-                v-model="form.compilerSettings"
-                placeholder="Default null"
-              />
-            </ElFormItem>
-            <ElFormItem label="模糊器">
-              <ElInput v-model="form.fuzz" placeholder="Default AFL++" />
-            </ElFormItem>
-            <ElFormItem label="模糊测试时间">
-              <ElInput v-model="form.fuzzTime" placeholder="Default 1day" />
-            </ElFormItem>
-            <ElFormItem label="模糊测试目标程序">
-              <ElInput v-model="form.fuzzTarget" placeholder="Default all" />
-            </ElFormItem>
-            <ElFormItem
-              v-for="(item, index) in form.fuzzCommands"
-              :key="item.key"
-              label="模糊测试命令"
-            >
-              <ElSpace direction="horizontal">
-                <ElInput v-model="item.value" placeholder="Default null" />
-                <ElButton
-                  v-if="index === 0"
-                  :icon="Plus"
-                  color="#626aef"
-                  type="primary"
-                  @click="addCommand"
-                />
-                <ElButton
-                  v-if="index !== 0"
-                  :icon="Trash"
-                  @click.prevent="removeCommand(item)"
-                />
-              </ElSpace>
             </ElFormItem>
           </ElCol>
         </ElRow>

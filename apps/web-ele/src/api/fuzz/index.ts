@@ -17,6 +17,11 @@ export namespace FuzzApi {
     fuzzCommands: FuzzCommand[];
   }
 
+  export interface WebFuzzParams {
+    name: string;
+    url?: string;
+  }
+
   export interface FuzzResult {
     data: string;
   }
@@ -54,7 +59,7 @@ export async function openFuzz(data: FuzzApi.FuzzParams) {
 /**
  * Web Fuzz
  */
-export async function webFuzz(data: FuzzApi.FuzzParams) {
+export async function webFuzz(data: FuzzApi.WebFuzzParams) {
   return requestClient.post<FuzzApi.FuzzResult>('/fuzz/web', data);
 }
 
@@ -71,4 +76,22 @@ export async function getProjects(){
 
 export async function getProjectRes(id: number) {
   return requestClient.get<FuzzApi.FuzzingReport>(`/fuzz/project/${id}`);
+}
+
+export async function deleteProject(id: number) {
+  return requestClient.delete(`/fuzz/project/${id}`)
+}
+
+export async function stopProject(id: number) {
+  return requestClient.put(`/fuzz/project/${id}`, {
+    id,
+    status: 1
+  })
+}
+
+export async function startProject(id: number) {
+  return requestClient.put(`/fuzz/project/${id}`, {
+    id,
+    status: 0
+  })
 }

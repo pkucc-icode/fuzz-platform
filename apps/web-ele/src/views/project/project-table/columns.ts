@@ -8,10 +8,10 @@ import ColumnHeader from './column-header.vue';
 import RowActions from './row-actions.vue';
 
 export interface Project {
-  id: string;
+  id: number;
   bugs: number;
   startTime: Date;
-  status: 0 | 1 | 2;
+  status: 0 | 1 | 2 | 3;
   name: string;
 }
 
@@ -70,8 +70,10 @@ export const columns: ColumnDef<Project>[] = [
     cell: ({ row }) => {
       const status = row.original.status;
       if (status === 0) {
-        return h('div', { class: 'capitalize' }, '运行');
+        return h('div', { class: 'capitalize' }, '运行中');
       } else if (status === 1) {
+        return h('div', { class: 'capitalize' }, '暂停');
+      } else if (status === 2) {
         return h('div', { class: 'capitalize' }, '成功');
       } else {
         return h('div', { class: 'capitalize' }, '失败');

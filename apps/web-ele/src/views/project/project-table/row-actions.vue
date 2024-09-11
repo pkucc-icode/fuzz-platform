@@ -10,10 +10,12 @@ import {
 } from '@vben/common-ui';
 
 import { MoreHorizontal } from 'lucide-vue-next';
+import { ElMessage } from 'element-plus';
+import { startProject, stopProject, deleteProject } from '#/api';
 
 defineProps<{
   project: {
-    id: string;
+    id: number;
   };
 }>();
 
@@ -21,12 +23,35 @@ defineEmits<{
   (e: 'expand'): void;
 }>();
 
-function view(id: string) {
+function view(id: number) {
   router.push(`/project-detail?id=${id}`)
 }
 
-function stop(id: string) {
-  navigator.clipboard.writeText(id);
+async function start(id: number) {
+  try {
+    await startProject(id);
+    ElMessage.success('操作成功');
+  } catch {
+    ElMessage.error('提交失败');
+  }
+}
+
+async function stop(id: number) {
+  try {
+    await stopProject(id);
+    ElMessage.success('操作成功');
+  } catch {
+    ElMessage.error('提交失败');
+  }
+}
+
+async function remove(id: number) {
+  try {
+    await deleteProject(id);
+    ElMessage.success('操作成功');
+  } catch {
+    ElMessage.error('提交失败');
+  }
 }
 </script>
 
@@ -47,9 +72,9 @@ function stop(id: string) {
         结束
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>删除</DropdownMenuItem>
+      <DropdownMenuItem @click="remove(project.id)">删除</DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>重新开始</DropdownMenuItem>
+      <DropdownMenuItem @click="start(project.id)">重新开始</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
