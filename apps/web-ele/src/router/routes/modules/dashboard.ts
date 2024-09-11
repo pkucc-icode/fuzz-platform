@@ -21,7 +21,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           affixTab: true,
           icon: 'lucide:area-chart',
-          title: $t('page.project.title'),
+          title: $t('page.dashboard.index'),
         },
       },
       // {

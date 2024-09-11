@@ -10,10 +10,12 @@
     "dashboard": {
       "title": "概览",
       "analytics": "分析页",
-      "workspace": "工作台"
+      "workspace": "工作台",
+      "index":"项目管理"
     },
     "project": {
-      "title":"项目管理"
+      "title":"项目管理",
+      "detail":"项目详情"
     },
     "vben": {
       "title": "项目",

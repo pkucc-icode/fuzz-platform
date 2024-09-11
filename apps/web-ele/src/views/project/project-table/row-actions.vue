@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { router } from '#/router';
 import {
   Button,
   DropdownMenu,
@@ -11,7 +12,7 @@ import {
 import { MoreHorizontal } from 'lucide-vue-next';
 
 defineProps<{
-  payment: {
+  project: {
     id: string;
   };
 }>();
@@ -20,7 +21,11 @@ defineEmits<{
   (e: 'expand'): void;
 }>();
 
-function copy(id: string) {
+function view(id: string) {
+  router.push(`/project-detail?id=${id}`)
+}
+
+function stop(id: string) {
   navigator.clipboard.writeText(id);
 }
 </script>
@@ -34,7 +39,11 @@ function copy(id: string) {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
-      <DropdownMenuItem @click="copy(payment.id)">
+      <DropdownMenuItem @click="view(project.id)">
+        查看
+      </DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem @click="stop(project.id)">
         结束
       </DropdownMenuItem>
       <DropdownMenuSeparator />

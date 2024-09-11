@@ -85,14 +85,14 @@ export const columns: ColumnDef<Project>[] = [
   },
   {
     cell: ({ row }) => {
-      const payment = row.original;
+      const project = row.original;
 
       return h(
         'div',
         { class: 'relative text-right' },
         h(RowActions, {
           onExpand: row.toggleExpanded,
-          payment,
+          project,
         }),
       );
     },

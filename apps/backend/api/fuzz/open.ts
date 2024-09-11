@@ -8,7 +8,7 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
 
-  const { name } = await readBody(event);
+  const { name, repoUrl, compiler, compilerSettings, fuzz, fuzzTime, fuzzTarget, fuzzCommands } = await readBody(event);
   const project = await prisma.project.create({
     data: {
       name

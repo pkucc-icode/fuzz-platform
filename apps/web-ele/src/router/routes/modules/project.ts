@@ -8,7 +8,8 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       order: -99,
-      title: $t('page.project.title'),
+      title: $t('page.project.detail'),
+      hideInMenu: true,
     },
     name: 'Project',
     path: '/',
