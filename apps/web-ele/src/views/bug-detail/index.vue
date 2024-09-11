@@ -1,10 +1,34 @@
 <script lang="ts" setup>
-
+import { onMounted, ref } from 'vue';
 import { Page } from '@vben/common-ui';
 import { ElCard } from 'element-plus';
+import { useRoute } from 'vue-router';
 
-const { code, crash, report } = window.history.state || {};
+import { getBug } from '#/api';
 
+interface BugDetail {
+    codeText: string;
+    report: string;
+    crash: string;
+}
+
+const route = useRoute();
+const { id } = route.query;
+const res = ref<BugDetail>({
+    codeText:"",
+    report:"",
+    crash:""
+})
+
+onMounted(async () => {
+    const projectId = Number(id);
+    try {
+        const bugRes = await getBug(projectId);
+        res.value = bugRes;
+    } catch (error) {
+        console.error('获取项目资源失败:', error);
+    }
+})
 </script>
 
 <template>
@@ -17,7 +41,7 @@ const { code, crash, report } = window.history.state || {};
             </template>
             <pre>
                 <code>
-                    {{ code }}
+                    {{ res.codeText }}
                 </code>
             </pre>
         </ElCard>
@@ -27,7 +51,7 @@ const { code, crash, report } = window.history.state || {};
                     <span class="font-bold">报告</span>
                 </div>
             </template>
-            {{ report }}
+            {{ res.report }}
         </ElCard>
         <ElCard class="mb-4">
             <template #header>
@@ -35,7 +59,7 @@ const { code, crash, report } = window.history.state || {};
                     <span class="font-bold">Crash</span>
                 </div>
             </template>
-            {{ crash }}
+            {{ res.crash }}
         </ElCard>
     </Page>
 </template>

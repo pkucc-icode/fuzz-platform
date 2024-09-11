@@ -21,17 +21,12 @@ interface BugTableProps {
 
 const props = defineProps<BugTableProps>();
 
-function view(id: string, bug: FuzzApi.Bug) {
+function view(id: string) {
   router.push({
     name: "BugDetail",
     query: {
-      id,
+      id: 1,
     },
-    state: {
-      "code": bug.risk_code_display_file,
-      "report": bug.asan_report_file,
-      "crash": bug.crash_file_path,
-    }
   })
 }
 </script>
@@ -53,7 +48,7 @@ function view(id: string, bug: FuzzApi.Bug) {
     <TableBody>
       <TableRow v-for="row in props.data" :key="row.bug_id">
         <TableCell>
-          <ElLink type="warning" @click="view(row.bug_id, row)">{{ row.bug_id }}</ElLink>
+          <ElLink type="warning" @click="view(row.bug_id)">{{ row.bug_id }}</ElLink>
         </TableCell>
         <TableCell>{{ row.bug_type }}</TableCell>
         <TableCell>{{ row.risk_level }}</TableCell>
