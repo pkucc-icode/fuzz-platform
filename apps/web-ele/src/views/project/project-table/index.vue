@@ -7,12 +7,12 @@ import { ElCard } from 'element-plus';
 
 import { columns } from './columns';
 import DataTable from './data-table.vue';
-import { getProjects } from '#/api';
+import { list } from '#/api';
 
 const data = ref<Project[]>([]);
 
 async function getData(): Promise<Project[]> {
-  const res = await getProjects();
+  const res = await list();
   return res;
 }
 

@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  const { res } = project;
+  const { result } = project;
 
-  return useResponseSuccess(res);
+  return useResponseSuccess(result);
 });

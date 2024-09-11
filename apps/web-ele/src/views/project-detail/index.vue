@@ -4,19 +4,19 @@ import { onMounted, ref } from 'vue';
 import { Page } from '@vben/common-ui';
 import { ElCard, ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { useRoute } from 'vue-router';
-import { getProjectRes } from '#/api';
-import { type FuzzApi } from '#/api/fuzz';
+import { getProject } from '#/api';
+import { type ProjectApi } from '#/api/project';
 import BugTable from './bug-table.vue';
 
 
-const res = ref<FuzzApi.FuzzingReport | null>(null)
+const res = ref<ProjectApi.ProjectReport | null>(null)
 const route = useRoute();
 const { id } = route.query;
 
 onMounted(async () => {
     const projectId = Number(id);
     try {
-        const projectRes = await getProjectRes(projectId);
+        const projectRes = await getProject(projectId);
         res.value = projectRes;
     } catch (error) {
         console.error('获取项目资源失败:', error);
