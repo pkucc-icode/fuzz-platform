@@ -23,6 +23,15 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.project.detail'),
         },
       },
+      {
+        name: 'BugDetail',
+        path: '/bug-detail',
+        component: () => import('#/views/bug-detail/index.vue'),
+        meta: {
+          hideInMenu: true,
+          title: $t('page.bug.detail'),
+        },
+      },
     ],
   },
 ];

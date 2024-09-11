@@ -9,7 +9,10 @@ import {
   TableRow,
 } from '@vben/common-ui'
 
+import { ElLink } from 'element-plus';
+
 import { type FuzzApi } from '#/api/fuzz';
+import { router } from '#/router';
 
 // 定义 props 接口
 interface BugTableProps {
@@ -18,6 +21,19 @@ interface BugTableProps {
 
 const props = defineProps<BugTableProps>();
 
+function view(id: string, bug: FuzzApi.Bug) {
+  router.push({
+    name: "BugDetail",
+    query: {
+      id,
+    },
+    state: {
+      "code": bug.risk_code_display_file,
+      "report": bug.asan_report_file,
+      "crash": bug.crash_file_path,
+    }
+  })
+}
 </script>
 
 <template>
@@ -32,21 +48,17 @@ const props = defineProps<BugTableProps>();
         <TableHead>风险等级</TableHead>
         <TableHead>首次发现时间</TableHead>
         <TableHead>总发现数</TableHead>
-        <TableHead>代码文件</TableHead>
-        <TableHead>报告</TableHead>
-        <TableHead>crash file path</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
       <TableRow v-for="row in props.data" :key="row.bug_id">
-        <TableCell>{{ row.bug_id }}</TableCell>
+        <TableCell>
+          <ElLink type="warning" @click="view(row.bug_id, row)">{{ row.bug_id }}</ElLink>
+        </TableCell>
         <TableCell>{{ row.bug_type }}</TableCell>
         <TableCell>{{ row.risk_level }}</TableCell>
         <TableCell>{{ row.first_discovery_time }}</TableCell>
         <TableCell>{{ row.total_discovery_count }}</TableCell>
-        <TableCell>{{ row.risk_code_display_file }}</TableCell>
-        <TableCell>{{ row.asan_report_file }}</TableCell>
-        <TableCell>{{ row.crash_file_path }}</TableCell>
       </TableRow>
     </TableBody>
   </Table>

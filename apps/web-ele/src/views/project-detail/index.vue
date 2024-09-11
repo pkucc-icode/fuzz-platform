@@ -37,7 +37,7 @@ onMounted(async () => {
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
-                    <span>Bug 列表</span>
+                    <span class="font-bold">Bug 列表</span>
                 </div>
             </template>
             <BugTable :data="res?.bugs_found || []"/>

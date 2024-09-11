@@ -34,6 +34,7 @@ async function start(id: number) {
   } catch {
     ElMessage.error('提交失败');
   }
+  router.push(`/analytics`);
 }
 
 async function stop(id: number) {
