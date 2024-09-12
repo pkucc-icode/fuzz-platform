@@ -20,6 +20,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/project/index.vue'),
         meta: {
           affixTab: true,
+          hideInMenu: true, // 不在菜单中显示
           icon: 'lucide:area-chart',
           title: $t('page.dashboard.index'),
         },

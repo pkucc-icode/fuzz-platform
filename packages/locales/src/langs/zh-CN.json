@@ -17,6 +17,9 @@
       "title":"项目管理",
       "detail":"项目详情"
     },
+    "bug": {
+      "detail":"Bug详情"
+    },
     "vben": {
       "title": "项目",
       "about": "关于",

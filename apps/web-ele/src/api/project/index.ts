@@ -1,27 +1,47 @@
 import { requestClient } from '#/api/request';
 
 export namespace ProjectApi {
+
+    export interface FuzzParam {
+      fuzz: string;
+      repoUrl: string;
+      compiler: string;
+      fuzzTime: string;
+      fuzzTarget: string;
+      fuzzCommands: string[];
+      compilerSettings: string;
+    };
+
+    export interface ProjectDetail {
+      id: number;
+      type: string;
+      name: string;
+      repoUrl: string | null;
+      startTime: string;
+      bugs: number;
+      status: number;
+      param: FuzzParam;
+      result: ProjectReport;
+      projectBugs: Array<Bug>;
+      authorId: number | null;
+    }
   
     export interface ProjectReport {
-      code_path: string;
-      code_coverage: {
-        bitmap_cvg: string;
-      };
+      coverage: string;
       fuzzing_task_count: number;
       total_bugs_found: number;
-      bugs_found: Array<Bug>;
     }
   
     export interface Bug {
-      bug_id: string;
-      bug_type: string;
-      risk_level: string; // 风险等级，例如 "高", "中", "低"
-      bug_description: string;
-      first_discovery_time: string;
-      total_discovery_count: number;
-      risk_code_display_file: string;
-      asan_report_file: string;
-      crash_file_path: string;
+      id: number;
+      name: string;
+      type: string;
+      risk: string;
+      firstTime: string;
+      total: number;
+      codeText: string;
+      report: string;
+      crash: string;
     }
   
 }
@@ -31,7 +51,7 @@ export async function list() {
 }
 
 export async function getProject(id: number) {
-  return requestClient.get<ProjectApi.ProjectReport>(`/project/${id}`);
+  return requestClient.get<ProjectApi.ProjectDetail>(`/project/${id}`);
 }
 
 export async function deleteProject(id: number) {

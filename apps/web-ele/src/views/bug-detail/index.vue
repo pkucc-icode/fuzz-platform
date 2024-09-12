@@ -32,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <Page description="" title="Bug详情">
+    <Page description="" title="Bug详细信息">
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">

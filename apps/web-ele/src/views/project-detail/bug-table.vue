@@ -20,11 +20,11 @@ interface BugTableProps {
 
 const props = defineProps<BugTableProps>();
 
-function view(id: string) {
+function view(id: number) {
   router.push({
     name: "BugDetail",
     query: {
-      id: 1,
+      id,
     },
   })
 }
@@ -36,7 +36,7 @@ function view(id: string) {
     <TableHeader>
       <TableRow>
         <TableHead class="w-[100px]">
-          ID
+          Bug 名称
         </TableHead>
         <TableHead>Bug 类型</TableHead>
         <TableHead>风险等级</TableHead>
@@ -45,14 +45,14 @@ function view(id: string) {
       </TableRow>
     </TableHeader>
     <TableBody>
-      <TableRow v-for="row in props.data" :key="row.bug_id">
+      <TableRow v-for="row in props.data" :key="row.id">
         <TableCell>
-          <ElLink type="warning" @click="view(row.bug_id)">{{ row.bug_id }}</ElLink>
+          <ElLink type="warning" @click="view(row.id)">{{ row.name }}</ElLink>
         </TableCell>
-        <TableCell>{{ row.bug_type }}</TableCell>
-        <TableCell>{{ row.risk_level }}</TableCell>
-        <TableCell>{{ row.first_discovery_time }}</TableCell>
-        <TableCell>{{ row.total_discovery_count }}</TableCell>
+        <TableCell>{{ row.type }}</TableCell>
+        <TableCell>{{ row.risk }}</TableCell>
+        <TableCell>{{ row.firstTime }}</TableCell>
+        <TableCell>{{ row.total }}</TableCell>
       </TableRow>
     </TableBody>
   </Table>

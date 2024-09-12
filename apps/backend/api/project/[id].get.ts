@@ -13,10 +13,11 @@ export default defineEventHandler(async (event) => {
   const project = await prisma.project.findUnique({
     where: {
         id:Number(id)
-    }
+    },
+    include: {
+      projectBugs: true, // Include all related bugs
+    },
   })
 
-  const { result } = project;
-
-  return useResponseSuccess(result);
+  return useResponseSuccess(project);
 });

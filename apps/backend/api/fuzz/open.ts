@@ -1,6 +1,6 @@
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { unAuthorizedResponse } from '~/utils/response';
-import prisma from "~/lib/prisma";
+import prisma from '~/lib/prisma';
 
 export default eventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
@@ -8,13 +8,32 @@ export default eventHandler(async (event) => {
     return unAuthorizedResponse(event);
   }
 
-  const { name, repoUrl, compiler, compilerSettings, fuzz, fuzzTime, fuzzTarget, fuzzCommands } = await readBody(event);
+  const {
+    name,
+    repoUrl,
+    compiler,
+    compilerSettings,
+    fuzz,
+    fuzzTime,
+    fuzzTarget,
+    fuzzCommands,
+  } = await readBody(event);
   const project = await prisma.project.create({
     data: {
-      type:"openFuzz",
-      name
+      type: 'openFuzz',
+      name,
+      repoUrl,
+      param: {
+        repoUrl,
+        compiler: compiler || 'llvm-clang',
+        compilerSettings,
+        fuzz: fuzz || 'AFL++',
+        fuzzTime: fuzzTime || '1day',
+        fuzzTarget: fuzzTarget || 'all',
+        fuzzCommands: fuzzCommands || [],
+      },
     },
-  })
+  });
 
   return useResponseSuccess(project);
 });
