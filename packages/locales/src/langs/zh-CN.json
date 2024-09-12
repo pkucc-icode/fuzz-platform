@@ -102,8 +102,8 @@
   },
   "authentication": {
     "welcomeBack": "欢迎回来",
-    "pageTitle": "开箱即用的大型中后台管理系统",
-    "pageDesc": "工程化、高性能、跨组件库的前端模版",
+    "pageTitle": "AI Fuzz",
+    "pageDesc": "自动化编译源码并进行模糊测试，并输出crash&report",
     "loginSuccess": "登录成功",
     "loginSuccessDesc": "欢迎回来",
     "loginSubtitle": "请输入您的帐户信息以开始管理您的项目",

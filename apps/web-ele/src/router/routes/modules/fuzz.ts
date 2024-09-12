@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       badgeType: 'dot',
-      icon: VBEN_LOGO_URL,
+      icon: 'lucide:file-plus',
       order: 9999,
       title: $t('page.fuzz.title'),
     },
@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
         path: '/fuzz-admin/fuzz-open',
         component: () => import('#/views/fuzz/open/index.vue'),
         meta: {
-          icon: 'lucide:book-open-text',
+          icon: 'lucide:code',
           title: $t('page.fuzz.open'),
         },
       },
@@ -31,7 +31,7 @@ const routes: RouteRecordRaw[] = [
         path: '/fuzz-admin/fuzz-web',
         component: () => import('#/views/fuzz/web/index.vue'),
         meta: {
-          icon: 'lucide:circle-dot',
+          icon: 'lucide:package',
           title: $t('page.fuzz.web'),
         },
       },
