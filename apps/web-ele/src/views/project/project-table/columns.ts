@@ -45,6 +45,15 @@ export const columns: ColumnDef<Project>[] = [
       }),
   },
   {
+    accessorKey: 'type',
+    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('type')),
+    header: ({ column }) =>
+      h(ColumnHeader, {
+        column,
+        title: '项目类型',
+      }),
+  },
+  {
     accessorKey: 'bugs',
     cell: ({ row }) => {
       return h('div', { class: 'font-medium' }, row.getValue('bugs'));

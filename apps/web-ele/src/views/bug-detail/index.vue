@@ -21,9 +21,9 @@ const res = ref<BugDetail>({
 })
 
 onMounted(async () => {
-    const projectId = Number(id);
+    const bugId = Number(id);
     try {
-        const bugRes = await getBug(projectId);
+        const bugRes = await getBug(bugId);
         res.value = bugRes;
     } catch (error) {
         console.error('获取项目资源失败:', error);
@@ -59,7 +59,9 @@ onMounted(async () => {
                     <span class="font-bold">Crash</span>
                 </div>
             </template>
-            {{ res.crash }}
+            <pre>
+                {{ res.crash }}
+            </pre>
         </ElCard>
     </Page>
 </template>

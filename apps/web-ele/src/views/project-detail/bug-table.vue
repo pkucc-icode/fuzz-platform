@@ -11,12 +11,11 @@ import {
 
 import { ElLink } from 'element-plus';
 
-import { type FuzzApi } from '#/api/fuzz';
+import { type ProjectApi } from '#/api/project';
 import { router } from '#/router';
 
-// 定义 props 接口
 interface BugTableProps {
-    data: FuzzApi.Bug[];
+    data: ProjectApi.Bug[];
 }
 
 const props = defineProps<BugTableProps>();
