@@ -28,6 +28,12 @@ function view(id: number) {
     },
   })
 }
+
+function linkType(risk: string) {
+  if (risk === "高") return "danger";
+  if (risk === "中") return "warning";
+  return "success";
+}
 </script>
 
 <template>
@@ -47,7 +53,7 @@ function view(id: number) {
     <TableBody>
       <TableRow v-for="row in props.data" :key="row.id">
         <TableCell>
-          <ElLink type="warning" @click="view(row.id)">{{ row.name }}</ElLink>
+          <ElLink :type="linkType(row.risk)" @click="view(row.id)">{{ row.name }}</ElLink>
         </TableCell>
         <TableCell>{{ row.type }}</TableCell>
         <TableCell>{{ row.risk }}</TableCell>

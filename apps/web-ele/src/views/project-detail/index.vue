@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
-import { ElCard, ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { ElCard, ElLink, ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { useRoute } from 'vue-router';
 import { getProject } from '#/api';
 import { type ProjectApi } from '#/api/project';
@@ -31,7 +31,9 @@ onMounted(async () => {
             <ElDescriptions title="项目参数" :column="2">
                 <ElDescriptionsItem label="项目名">{{ res?.name }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="类型">{{ res?.type }}</ElDescriptionsItem>
-                <ElDescriptionsItem label="项目源码">{{ res?.repoUrl }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="项目源码">
+                    <ElLink type="info">{{ res?.repoUrl }}</ElLink>
+                </ElDescriptionsItem>
                 <ElDescriptionsItem label="Bug总数">{{ res?.bugs }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="开始时间">{{ res?.startTime }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="状态">{{ res?.status }}</ElDescriptionsItem>
