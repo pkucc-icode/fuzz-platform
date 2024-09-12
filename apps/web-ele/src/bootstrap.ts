@@ -10,6 +10,9 @@ import { setupI18n } from '#/locales';
 import App from './app.vue';
 import { router } from './router';
 
+import { VueQueryPlugin } from '@tanstack/vue-query'
+
+
 async function bootstrap(namespace: string) {
   const app = createApp(App);
 
@@ -24,6 +27,9 @@ async function bootstrap(namespace: string) {
 
   // 配置路由及路由守卫
   app.use(router);
+
+  // Vue Query
+  app.use(VueQueryPlugin);
 
   app.mount('#app');
 }

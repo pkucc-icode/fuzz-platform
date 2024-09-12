@@ -8,17 +8,13 @@ import { ElCard } from 'element-plus';
 import { columns } from './columns';
 import DataTable from './data-table.vue';
 import { list } from '#/api';
+import { useQuery } from '@tanstack/vue-query';
 
-const data = ref<Project[]>([]);
 
-async function getData(): Promise<Project[]> {
-  const res = await list();
-  return res;
-}
-
-onMounted(async () => {
-  data.value = await getData();
-});
+const { data } = useQuery({
+    queryKey: ['projects'],
+    queryFn: list,
+  });
 </script>
 
 <template>
@@ -28,6 +24,6 @@ onMounted(async () => {
         <span>项目</span>
       </div>
     </template>
-    <DataTable :columns="columns" :data="data" />
+    <DataTable :columns="columns" :data="data || []" />
   </ElCard>
 </template>

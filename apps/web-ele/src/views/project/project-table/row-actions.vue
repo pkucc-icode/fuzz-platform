@@ -12,6 +12,7 @@ import {
 import { MoreHorizontal } from 'lucide-vue-next';
 import { ElMessage } from 'element-plus';
 import { startProject, stopProject, deleteProject } from '#/api';
+import { useQueryClient } from '@tanstack/vue-query';
 
 defineProps<{
   project: {
@@ -23,6 +24,9 @@ defineEmits<{
   (e: 'expand'): void;
 }>();
 
+const queryClient = useQueryClient();
+
+
 function view(id: number) {
   router.push(`/project-detail?id=${id}`)
 }
@@ -31,6 +35,9 @@ async function start(id: number) {
   try {
     await startProject(id);
     ElMessage.success('操作成功');
+    queryClient.invalidateQueries({
+      queryKey: ["projects"]
+    });
   } catch {
     ElMessage.error('提交失败');
   }
@@ -41,6 +48,9 @@ async function stop(id: number) {
   try {
     await stopProject(id);
     ElMessage.success('操作成功');
+    queryClient.invalidateQueries({
+      queryKey: ["projects"]
+    });
   } catch {
     ElMessage.error('提交失败');
   }

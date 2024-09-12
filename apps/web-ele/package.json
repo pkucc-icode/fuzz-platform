@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@radix-icons/vue": "^1.0.0",
+    "@tanstack/vue-query": "^5.55.4",
     "@tanstack/vue-table": "^8.20.5",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
