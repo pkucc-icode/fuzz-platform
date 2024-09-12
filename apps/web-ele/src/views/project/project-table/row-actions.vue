@@ -70,7 +70,7 @@ async function remove(id: number) {
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click="stop(project.id)">
-        结束
+        暂停
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click="remove(project.id)">删除</DropdownMenuItem>

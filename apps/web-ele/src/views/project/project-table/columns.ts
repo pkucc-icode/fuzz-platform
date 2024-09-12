@@ -6,6 +6,7 @@ import { Checkbox } from '@vben/common-ui';
 
 import ColumnHeader from './column-header.vue';
 import RowActions from './row-actions.vue';
+import { Loader, CirclePause, Check, CircleX } from 'lucide-vue-next';
 
 export interface Project {
   id: number;
@@ -79,19 +80,19 @@ export const columns: ColumnDef<Project>[] = [
     cell: ({ row }) => {
       const status = row.original.status;
       if (status === 0) {
-        return h('div', { class: 'capitalize' }, '运行中');
+        return h(Loader, { class: 'text-indigo-500 animate-spin' }, '运行中');
       } else if (status === 1) {
-        return h('div', { class: 'capitalize' }, '暂停');
+        return h(CirclePause, { class: 'text-orange-500' }, '暂停');
       } else if (status === 2) {
-        return h('div', { class: 'capitalize' }, '成功');
+        return h(Check, { class: 'text-green-500' }, '成功');
       } else {
-        return h('div', { class: 'capitalize' }, '失败');
+        return h(CircleX, { class: 'text-red-500' }, '失败');
       }
     },
     header: ({ column }) =>
       h(ColumnHeader, {
         column,
-        title: '项目状态',
+        title: '状态',
       }),
   },
   {

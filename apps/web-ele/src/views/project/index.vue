@@ -7,10 +7,10 @@ import {
 } from '@vben/common-ui';
 
 import {
-  SvgBellIcon,
-  SvgCakeIcon,
-  SvgCardIcon,
-  SvgDownloadIcon,
+  SvgBugIcon,
+  SvgDoingIcon,
+  SvgFinishIcon,
+  SvgProjectIcon,
 } from '@vben/icons';
 
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
@@ -18,28 +18,28 @@ import ProjectTable from './project-table/index.vue'
 
 const overviewItems: AnalysisOverviewItem[] = [
   {
-    icon: SvgCardIcon,
+    icon: SvgProjectIcon,
     title: '项目数量',
     totalTitle: '项目数量',
     totalValue: 120_000,
     value: 2000,
   },
   {
-    icon: SvgCakeIcon,
+    icon: SvgFinishIcon,
     title: '已完成任务',
     totalTitle: '已完成任务',
     totalValue: 500_000,
     value: 20_000,
   },
   {
-    icon: SvgDownloadIcon,
+    icon: SvgDoingIcon,
     title: '进行中任务',
     totalTitle: '进行中任务',
     totalValue: 120_000,
     value: 8000,
   },
   {
-    icon: SvgBellIcon,
+    icon: SvgBugIcon,
     title: '总Bug数量',
     totalTitle: '总Bug数量',
     totalValue: 50_000,
