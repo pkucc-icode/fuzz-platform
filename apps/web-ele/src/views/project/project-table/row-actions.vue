@@ -60,6 +60,9 @@ async function remove(id: number) {
   try {
     await deleteProject(id);
     ElMessage.success('操作成功');
+    queryClient.invalidateQueries({
+      queryKey: ["projects"]
+    });
   } catch {
     ElMessage.error('提交失败');
   }

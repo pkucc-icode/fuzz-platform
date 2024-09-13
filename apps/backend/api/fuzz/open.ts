@@ -2,6 +2,12 @@ import { verifyAccessToken } from '~/utils/jwt-utils';
 import { unAuthorizedResponse } from '~/utils/response';
 import prisma from '~/lib/prisma';
 
+import { exec, spawn } from 'child_process';
+import { promisify } from 'util';
+
+const execPromise = promisify(exec);
+
+
 export default eventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
   if (!userinfo) {
@@ -34,6 +40,8 @@ export default eventHandler(async (event) => {
       },
     },
   });
+
+  execPromise('bash run.sh > run.log 2>&1 &');
 
   return useResponseSuccess(project);
 });
