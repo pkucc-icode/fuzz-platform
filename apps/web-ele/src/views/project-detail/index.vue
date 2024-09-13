@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 import { ElCard, ElLink, ElDescriptions, ElDescriptionsItem } from 'element-plus';
@@ -13,16 +13,34 @@ const res = ref<ProjectApi.ProjectDetail | null>(null)
 const route = useRoute();
 const { id } = route.query;
 
+const logContent = ref<string>(''); // 用于存储日志内容
+let eventSource: EventSource | null = null; // SSE 连接
+
+
 onMounted(async () => {
     const projectId = Number(id);
     try {
         const projectRes = await getProject(projectId);
         res.value = projectRes;
-        console.log(res.value);
+        
+        eventSource = new EventSource('/api/fuzz/log');
+        eventSource.onmessage = (event) => {
+            logContent.value += `${event.data}\n`;
+        };
+
+        eventSource.onerror = (error) => {
+            console.error('SSE 连接出错:', error);
+            eventSource?.close();
+        };
+
     } catch (error) {
         console.error('获取项目资源失败:', error);
     }
 })
+
+onUnmounted(() => {
+    eventSource?.close();
+});
 </script>
 
 <template>
@@ -48,6 +66,14 @@ onMounted(async () => {
                 </div>
             </template>
             <BugTable :data="res?.projectBugs || []"/>
+        </ElCard>
+        <ElCard class="mb-4">
+            <template #header>
+                <div class="card-header">
+                    <span class="font-bold">日志</span>
+                </div>
+            </template>
+            <pre class="h-80 overflow-y-auto whitespace-pre-wrap p-3 rounded border border-gray-300">{{ logContent }}</pre> 
         </ElCard>
     </Page>
 </template>
