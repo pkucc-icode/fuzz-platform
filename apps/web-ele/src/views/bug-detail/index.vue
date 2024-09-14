@@ -4,7 +4,7 @@ import { Page } from '@vben/common-ui';
 import { ElCard } from 'element-plus';
 import { useRoute } from 'vue-router';
 
-import { getBug } from '#/api';
+import { getBugDetail } from '#/api/bug/index';
 
 interface BugDetail {
     codeText: string;
@@ -23,7 +23,7 @@ const res = ref<BugDetail>({
 onMounted(async () => {
     const bugId = Number(id);
     try {
-        const bugRes = await getBug(bugId);
+        const bugRes = await getBugDetail(bugId);
         res.value = bugRes;
     } catch (error) {
         console.error('获取项目资源失败:', error);
