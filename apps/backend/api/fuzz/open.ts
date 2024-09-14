@@ -41,7 +41,9 @@ export default eventHandler(async (event) => {
     },
   });
 
-  execPromise('bash run.sh > run.log 2>&1 &');
+  const { id } = project;
+
+  execPromise(`bash run.sh > run-${id}.log 2>&1 &`);
 
   return useResponseSuccess(project);
 });

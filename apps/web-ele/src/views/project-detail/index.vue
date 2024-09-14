@@ -23,7 +23,7 @@ onMounted(async () => {
         const projectRes = await getProject(projectId);
         res.value = projectRes;
         
-        eventSource = new EventSource('/api/fuzz/log');
+        eventSource = new EventSource(`/api/fuzz/log/${projectId}`);
         eventSource.onmessage = (event) => {
             logContent.value += `${event.data}\n`;
         };
@@ -73,7 +73,7 @@ onUnmounted(() => {
                     <span class="font-bold">日志</span>
                 </div>
             </template>
-            <pre class="h-80 overflow-y-auto whitespace-pre-wrap p-3 rounded border border-gray-300">{{ logContent }}</pre> 
+            <pre class="h-80 overflow-y-auto whitespace-pre-wrap text-sm p-3 rounded">{{ logContent }}</pre> 
         </ElCard>
     </Page>
 </template>
