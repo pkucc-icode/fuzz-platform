@@ -5,7 +5,7 @@ import prisma from '~/lib/prisma';
 export default eventHandler((event) => {
 
     const id = getRouterParam(event, 'id');
-    const logFilePath = path.resolve(`run-${id}.log`);
+    const logFilePath = path.resolve(`sh/run-${id}.log`);
 
     event.node.res.setHeader('Content-Type', 'text/event-stream');
     event.node.res.setHeader('Cache-Control', 'no-cache');

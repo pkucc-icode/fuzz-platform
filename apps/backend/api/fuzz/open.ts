@@ -46,18 +46,19 @@ export default eventHandler(async (event) => {
 
   const data = {
     "program_name": project.name,
-    "url": project.url,
+    "url": project.repoUrl,
     "source_code_path": "",
     "afl_fuzz_args": {
       "task_id": 1,
       "Default_compiler": {
-        "default": project.compiler,
-        "compile_setting": project.compile_setting
+        "default": project.param.compiler,
+        "compile_setting": "cmake",
       },
-      "fuzzer": project.fuzz,
-      "fuzz_time": project.fuzz_time,
+      "fuzzer": project.param.fuzz,
+      "fuzz_time": "10s",
       "fuzz_target": [
-        fuzzTarget
+        "pdftotext",
+        "pdftohtml"
       ],
       "CC_module": "",
       "CXX_module": ""
@@ -65,19 +66,18 @@ export default eventHandler(async (event) => {
   };
 
   const jsonString = JSON.stringify(data, null, 4); // 第三个参数4用于格式化输出
-  await writeFile(jsonString);
+  await writeFile(project.id, jsonString);
 
-
-  execPromise(`bash run.sh > run-${id}.log 2>&1 &`);
+  execPromise(`bash run.sh ${project.id}> sh/run-${id}.log 2>&1 &`);
 
   return useResponseSuccess(project);
 });
 
 
 
-async function writeFile(jsonString: string) {
+async function writeFile(id: number, jsonString: string) {
   try {
-      await fs.writeFile('sh/config.json', jsonString);
+      await fs.writeFile(`sh/config-${id}.json`, jsonString);
       console.log('File written successfully');
   } catch (err) {
       console.error('Error writing file:', err);
