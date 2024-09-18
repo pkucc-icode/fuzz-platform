@@ -4,3 +4,7 @@ node_modules
 
 
 prisma/dev.db
+
+
+# fuzz 
+sh
