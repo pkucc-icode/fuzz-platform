@@ -7,6 +7,7 @@ import { useRoute } from 'vue-router';
 import { getProject } from '#/api';
 import { type ProjectApi } from '#/api/project';
 import BugTable from './bug-table.vue';
+import { nextTick } from 'vue';
 
 
 const res = ref<ProjectApi.ProjectDetail | null>(null)
@@ -23,8 +24,9 @@ onMounted(async () => {
         res.value = projectRes;
         
         eventSource = new EventSource(`/api/fuzz/log/${id}`);
-        eventSource.onmessage = (event) => {
+        eventSource.onmessage = async (event) => {
             logContent.value += `${event.data}\n`;
+            await scrollToBottom();
         };
 
         eventSource.onerror = (error) => {
@@ -40,6 +42,15 @@ onMounted(async () => {
 onUnmounted(() => {
     eventSource?.close();
 });
+
+const scrollArea = ref<HTMLElement | null>(null);
+
+const scrollToBottom = async () => {
+  await nextTick();
+  if (scrollArea.value) {
+    scrollArea.value.scrollTop = scrollArea.value.scrollHeight;
+  }
+};
 </script>
 
 <template>
@@ -54,8 +65,8 @@ onUnmounted(() => {
                 <ElDescriptionsItem label="Bug总数">{{ res?.bugs }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="开始时间">{{ res?.startTime }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="状态">{{ res?.status }}</ElDescriptionsItem>
-                <ElDescriptionsItem label="覆盖率">{{ res?.result.coverage }}</ElDescriptionsItem>
-                <ElDescriptionsItem label="任务数量">{{ res?.result.fuzzing_task_count }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="覆盖率">{{ res?.coverage }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="任务数量">{{ res?.taskCount }}</ElDescriptionsItem>
             </ElDescriptions>
         </ElCard>
         <ElCard class="mb-4">
@@ -72,7 +83,7 @@ onUnmounted(() => {
                     <span class="font-bold">日志</span>
                 </div>
             </template>
-            <pre class="h-80 overflow-y-auto whitespace-pre-wrap text-sm p-3 rounded">{{ logContent }}</pre> 
+            <pre ref="scrollArea" class="h-80 overflow-y-auto whitespace-pre-wrap text-sm p-3 rounded">{{ logContent }}</pre> 
         </ElCard>
     </Page>
 </template>

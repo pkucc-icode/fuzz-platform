@@ -1,13 +1,8 @@
 import { verifyAccessToken } from '~/utils/jwt-utils';
 import { unAuthorizedResponse } from '~/utils/response';
+import { spawnPromise } from '~/utils/fuzz';
 import prisma from '~/lib/prisma';
-
-import { exec, spawn } from 'child_process';
 import fs from 'fs/promises';
-import { promisify } from 'util';
-
-const execPromise = promisify(exec);
-
 
 export default eventHandler(async (event) => {
   const userinfo = verifyAccessToken(event);
@@ -33,10 +28,10 @@ export default eventHandler(async (event) => {
       param: {
         repoUrl,
         compiler: compiler || 'llvm-clang',
-        compilerSettings,
+        compilerSettings: compilerSettings || 'cmake',
         fuzz: fuzz || 'AFL++',
         fuzzTime: fuzzTime || '1day',
-        fuzzTarget: fuzzTarget || 'all',
+        fuzzTarget: fuzzTarget || [],
         fuzzCommands: fuzzCommands || [],
       },
     },
@@ -44,22 +39,20 @@ export default eventHandler(async (event) => {
 
   const { id } = project;
 
+  // fuzz_target can be ["pdftotext","pdfinfo"]
   const data = {
-    "program_name": project.name,
-    "url": project.repoUrl,
+    "program_name": name,
+    "url": repoUrl,
     "source_code_path": "",
     "afl_fuzz_args": {
       "task_id": 1,
       "Default_compiler": {
-        "default": project.param.compiler,
-        "compile_setting": "cmake",
+        "default": compiler || 'llvm-clang',
+        "compile_setting": compilerSettings || "cmake",
       },
-      "fuzzer": project.param.fuzz,
-      "fuzz_time": "10s",
-      "fuzz_target": [
-        "pdftotext",
-        "pdftohtml"
-      ],
+      "fuzzer": fuzz || 'AFL++',
+      "fuzz_time": fuzzTime || '60s',
+      "fuzz_target": fuzzTarget || [],
       "CC_module": "",
       "CXX_module": ""
     }
@@ -68,7 +61,14 @@ export default eventHandler(async (event) => {
   const jsonString = JSON.stringify(data, null, 4); // 第三个参数4用于格式化输出
   await writeFile(project.id, jsonString);
 
-  execPromise(`bash run.sh ${project.id}> sh/run-${id}.log 2>&1 &`);
+  // execPromise(`bash run.sh ${project.id}> sh/run-${id}.log 2>&1`);
+  spawnPromise('bash', ['run.sh', id], id)
+    .then((output: string) => {
+      console.log('命令执行成功');
+    })
+    .catch((error: Error) => {
+      console.error('命令执行失败:', error);
+    });
 
   return useResponseSuccess(project);
 });

@@ -13,8 +13,8 @@ export namespace FuzzApi {
     compilerSettings: string;
     fuzz: string;
     fuzzTime: string;
-    fuzzTarget: string;
-    fuzzCommands: FuzzCommand[];
+    fuzzTarget: string[];
+    fuzzCommands: string[];
   }
 
   export interface WebFuzzParams {

@@ -34,6 +34,8 @@ model Project {
   repoUrl     String?
   startTime   DateTime @default(now())
   bugs        Int?     @default(0)
+  taskCount   Int?     @default(0)
+  coverage    String?
   status      Status?  @default(RUNNING)
   param       Json?
   result      Json?
@@ -51,7 +53,9 @@ model Bug {
   name      String
   type      String?
   risk      String?
-  firstTime DateTime?
+  desc      String?
+  // firstTime DateTime?
+  firstTime String?
   total     Int?      @default(0)
   codeText  String?
   report    String?

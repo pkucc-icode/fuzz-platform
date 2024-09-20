@@ -20,6 +20,8 @@ export namespace ProjectApi {
       startTime: string;
       bugs: number;
       status: string;
+      coverage: string;
+      taskCount: number;
       param: FuzzParam;
       result: ProjectReport;
       projectBugs: Array<Bug>;

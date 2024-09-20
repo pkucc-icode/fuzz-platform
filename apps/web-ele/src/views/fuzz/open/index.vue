@@ -35,21 +35,16 @@ interface RuleForm {
   compilerSettings: string;
   fuzz: string;
   fuzzTime: string;
-  fuzzTarget: string;
-  fuzzCommands: FuzzCommand[];
+  fuzzTarget: string[];
+  fuzzCommands: string[];
 }
 
 const form = reactive<RuleForm>({
   compiler: '',
   compilerSettings: '',
   fuzz: '',
-  fuzzCommands: [
-    {
-      key: Date.now(),
-      value: '',
-    },
-  ],
-  fuzzTarget: '',
+  fuzzCommands: [''],
+  fuzzTarget: [''],
   fuzzTime: '',
   name: '',
   repoUrl: '',
@@ -89,7 +84,18 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
-const removeCommand = (item: FuzzCommand) => {
+const removeTarget = (item: string) => {
+  const index = form.fuzzTarget.indexOf(item);
+  if (index !== -1) {
+    form.fuzzTarget.splice(index, 1);
+  }
+};
+
+const addTarget = () => {
+  form.fuzzTarget.push('');
+};
+
+const removeCommand = (item: string) => {
   const index = form.fuzzCommands.indexOf(item);
   if (index !== -1) {
     form.fuzzCommands.splice(index, 1);
@@ -97,10 +103,7 @@ const removeCommand = (item: FuzzCommand) => {
 };
 
 const addCommand = () => {
-  form.fuzzCommands.push({
-    key: Date.now(),
-    value: '',
-  });
+  form.fuzzCommands.push('');
 };
 
 const fileList = ref<UploadUserFile[]>([]);
@@ -155,18 +158,36 @@ const fileList = ref<UploadUserFile[]>([]);
               <ElInput v-model="form.fuzz" placeholder="Default AFL++" />
             </ElFormItem>
             <ElFormItem label="模糊测试时间">
-              <ElInput v-model="form.fuzzTime" placeholder="Default 1day" />
+              <ElInput v-model="form.fuzzTime" placeholder="Default 60s" />
             </ElFormItem>
-            <ElFormItem label="模糊测试目标程序">
-              <ElInput v-model="form.fuzzTarget" placeholder="Default all" />
+            <ElFormItem
+              v-for="(item, index) in form.fuzzTarget"
+              :key="index"
+              label="模糊测试目标程序"
+            >
+              <ElSpace direction="horizontal">
+                <ElInput v-model="form.fuzzTarget[index]" placeholder="" />
+                <ElButton
+                  v-if="index === 0"
+                  :icon="Plus"
+                  color="#626aef"
+                  type="primary"
+                  @click="addTarget"
+                />
+                <ElButton
+                  v-if="index !== 0"
+                  :icon="Trash"
+                  @click.prevent="removeTarget(item)"
+                />
+              </ElSpace>
             </ElFormItem>
             <ElFormItem
               v-for="(item, index) in form.fuzzCommands"
-              :key="item.key"
+              :key="index"
               label="模糊测试命令"
             >
               <ElSpace direction="horizontal">
-                <ElInput v-model="item.value" placeholder="Default null" />
+                <ElInput v-model="form.fuzzCommands[index]" placeholder="" />
                 <ElButton
                   v-if="index === 0"
                   :icon="Plus"
