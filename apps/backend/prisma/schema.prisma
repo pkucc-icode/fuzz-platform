@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String @id @default(uuid())
   email     String    @unique
   name      String
   password  String
@@ -20,25 +20,34 @@ model User {
   updatedAt DateTime  @updatedAt
 }
 
+enum Status {
+  RUNNING
+  STOP
+  SUCCESS
+  FAIL
+}
+
 model Project {
-  id          Int      @id @default(autoincrement())
+  id          String @id @default(uuid())
   type        String
   name        String
   repoUrl     String?
   startTime   DateTime @default(now())
   bugs        Int?     @default(0)
-  status      Int?     @default(0)
+  status      Status?  @default(RUNNING)
   param       Json?
   result      Json?
   projectBugs Bug[]
   author      User?    @relation(fields: [authorId], references: [id])
-  authorId    Int?
+  authorId    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
+
+
 model Bug {
-  id        Int       @id @default(autoincrement())
+  id        String @id @default(uuid())
   name      String
   type      String?
   risk      String?
@@ -48,7 +57,7 @@ model Bug {
   report    String?
   crash     String?
   project   Project?  @relation(fields: [projectId], references: [id])
-  projectId Int?
+  projectId String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }

@@ -13,17 +13,17 @@ export namespace ProjectApi {
     };
 
     export interface ProjectDetail {
-      id: number;
+      id: string;
       type: string;
       name: string;
       repoUrl: string | null;
       startTime: string;
       bugs: number;
-      status: number;
+      status: string;
       param: FuzzParam;
       result: ProjectReport;
       projectBugs: Array<Bug>;
-      authorId: number | null;
+      authorId: string | null;
     }
   
     export interface ProjectReport {
@@ -33,7 +33,7 @@ export namespace ProjectApi {
     }
   
     export interface Bug {
-      id: number;
+      id: string;
       name: string;
       type: string;
       risk: string;
@@ -46,28 +46,28 @@ export namespace ProjectApi {
   
 }
 
-export async function list() {
+export async function listProject() {
   return requestClient.get('/project/list');
 }
 
-export async function getProject(id: number) {
+export async function getProject(id: string) {
   return requestClient.get<ProjectApi.ProjectDetail>(`/project/${id}`);
 }
 
-export async function deleteProject(id: number) {
+export async function deleteProject(id: string) {
   return requestClient.delete(`/project/${id}`);
 }
 
-export async function stopProject(id: number) {
+export async function stopProject(id: string) {
   return requestClient.put(`/project/${id}`, {
     id,
-    status: 1,
+    status: "STOP",
   });
 }
 
-export async function startProject(id: number) {
+export async function startProject(id: string) {
   return requestClient.put(`/project/${id}`, {
     id,
-    status: 0,
+    status: "RUNNING",
   });
 }

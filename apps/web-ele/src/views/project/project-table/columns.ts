@@ -12,7 +12,7 @@ export interface Project {
   id: number;
   bugs: number;
   startTime: Date;
-  status: 0 | 1 | 2 | 3;
+  status: string;
   name: string;
 }
 
@@ -79,11 +79,11 @@ export const columns: ColumnDef<Project>[] = [
     accessorKey: 'status',
     cell: ({ row }) => {
       const status = row.original.status;
-      if (status === 0) {
+      if (status === 'RUNNING') {
         return h(Loader, { class: 'text-indigo-500 animate-spin' }, '运行中');
-      } else if (status === 1) {
+      } else if (status === 'STOP') {
         return h(CirclePause, { class: 'text-orange-500' }, '暂停');
-      } else if (status === 2) {
+      } else if (status === 'SUCCESS') {
         return h(Check, { class: 'text-green-500' }, '成功');
       } else {
         return h(CircleX, { class: 'text-red-500' }, '失败');

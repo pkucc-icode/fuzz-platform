@@ -20,7 +20,7 @@ interface BugTableProps {
 
 const props = defineProps<BugTableProps>();
 
-function view(id: number) {
+function view(id: string) {
   router.push({
     name: "BugDetail",
     query: {

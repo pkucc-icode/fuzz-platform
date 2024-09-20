@@ -16,7 +16,7 @@ import { useQueryClient } from '@tanstack/vue-query';
 
 defineProps<{
   project: {
-    id: number;
+    id: string;
   };
 }>();
 
@@ -27,11 +27,11 @@ defineEmits<{
 const queryClient = useQueryClient();
 
 
-function view(id: number) {
+function view(id: string) {
   router.push(`/project-detail?id=${id}`)
 }
 
-async function start(id: number) {
+async function start(id: string) {
   try {
     await startProject(id);
     ElMessage.success('操作成功');
@@ -44,7 +44,7 @@ async function start(id: number) {
   router.push(`/analytics`);
 }
 
-async function stop(id: number) {
+async function stop(id: string) {
   try {
     await stopProject(id);
     ElMessage.success('操作成功');
@@ -56,7 +56,7 @@ async function stop(id: number) {
   }
 }
 
-async function remove(id: number) {
+async function remove(id: string) {
   try {
     await deleteProject(id);
     ElMessage.success('操作成功');

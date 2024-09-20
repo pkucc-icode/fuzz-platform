@@ -18,12 +18,11 @@ let eventSource: EventSource | null = null; // SSE 连接
 
 
 onMounted(async () => {
-    const projectId = Number(id);
     try {
-        const projectRes = await getProject(projectId);
+        const projectRes = await getProject(id as string);
         res.value = projectRes;
         
-        eventSource = new EventSource(`/api/fuzz/log/${projectId}`);
+        eventSource = new EventSource(`/api/fuzz/log/${id}`);
         eventSource.onmessage = (event) => {
             logContent.value += `${event.data}\n`;
         };

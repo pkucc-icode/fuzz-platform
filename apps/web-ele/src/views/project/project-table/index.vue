@@ -7,13 +7,13 @@ import { ElCard } from 'element-plus';
 
 import { columns } from './columns';
 import DataTable from './data-table.vue';
-import { list } from '#/api';
+import { listProject } from '#/api';
 import { useQuery } from '@tanstack/vue-query';
 
 
 const { data } = useQuery({
     queryKey: ['projects'],
-    queryFn: list,
+    queryFn: listProject,
   });
 </script>
 

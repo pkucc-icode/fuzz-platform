@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const project = await prisma.project.findUnique({
     where: {
-        id:Number(id)
+        id
     },
     include: {
       projectBugs: true, // Include all related bugs

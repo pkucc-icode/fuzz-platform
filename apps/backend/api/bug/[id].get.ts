@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const bug = await prisma.bug.findUnique({
     where: {
-        id:Number(id)
+        id
     }
   })
 

@@ -3,12 +3,12 @@ import { onMounted, ref } from 'vue';
 
 import { ElButton, ElCard, ElTable, ElTableColumn } from 'element-plus';
 import { CirclePower, Trash, RotateCcw } from 'lucide-vue-next';
-import { getProjects } from '#/api';
+import { listProject } from '#/api';
 
 const tableData = ref([])
 
 onMounted(async () => {
-    const res = await getProjects();
+    const res = await listProject();
     tableData.value = res;
 })
 </script>

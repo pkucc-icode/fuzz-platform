@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   const res = await prisma.project.delete({
     where: {
-        id: Number(id),  
+        id
     }
   })
 

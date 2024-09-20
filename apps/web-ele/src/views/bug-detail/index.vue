@@ -21,9 +21,8 @@ const res = ref<BugDetail>({
 })
 
 onMounted(async () => {
-    const bugId = Number(id);
     try {
-        const bugRes = await getBugDetail(bugId);
+        const bugRes = await getBugDetail(id as string);
         res.value = bugRes;
     } catch (error) {
         console.error('获取项目资源失败:', error);

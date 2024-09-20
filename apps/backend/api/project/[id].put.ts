@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
 
   const project = await prisma.project.update({
     where: {
-        id:Number(id)
+        id
     },
     data: {
         name,

@@ -10,21 +10,21 @@ export const status = [
   {
     icon: h(CircleIcon),
     label: '运行',
-    value: '0',
+    value: 'RUNNING',
   },
   {
     icon: h(StopwatchIcon),
     label: '暂停',
-    value: '1',
+    value: 'STOP',
   },
   {
     icon: h(QuestionMarkCircledIcon),
     label: '成功',
-    value: '2',
+    value: 'SUCCESS',
   },
   {
     icon: h(StopwatchIcon),
     label: '失败',
-    value: '3',
+    value: 'FAIL',
   },
 ];
