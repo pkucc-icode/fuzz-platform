@@ -8,3 +8,6 @@ prisma/dev.db
 
 # fuzz 
 sh
+
+# env file
+.env
