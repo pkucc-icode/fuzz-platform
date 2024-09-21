@@ -1,5 +1,6 @@
 import { exec, spawn } from 'child_process';
 import { createWriteStream } from 'fs';
+import { promises as fs } from 'fs';
 
 
 // 创建一个 Promise 来处理 spawn
@@ -42,3 +43,13 @@ export function spawnPromise(command: string, args: string[], id: string) {
       });
     });
   }
+
+
+export async function readFileContent(filePath: string): Promise<string> {
+    try {
+        const data = await fs.readFile(filePath, 'utf-8');
+        return data;
+    } catch (error) {
+        throw new Error(`Error reading file`);
+    }
+}

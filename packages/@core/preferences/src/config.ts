@@ -85,7 +85,7 @@ const defaultPreferences: Preferences = {
     styleType: 'chrome',
   },
   theme: {
-    builtinType: 'default',
+    builtinType: 'violet',
     colorDestructive: 'hsl(348 100% 61%)',
     colorPrimary: 'hsl(212 100% 45%)',
     colorSuccess: 'hsl(144 57% 58%)',

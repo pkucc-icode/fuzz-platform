@@ -136,7 +136,7 @@ const fileList = ref<UploadUserFile[]>([]);
                 action="/api/upload"
                 class="upload-demo"
               >
-                <ElButton color="#626aef" type="primary">点击上传代码</ElButton>
+                <ElButton type="primary">点击上传代码</ElButton>
               </ElUpload>
             </ElFormItem>
             <ElFormItem label="编译器">
@@ -166,11 +166,10 @@ const fileList = ref<UploadUserFile[]>([]);
               label="模糊测试目标程序"
             >
               <ElSpace direction="horizontal">
-                <ElInput v-model="form.fuzzTarget[index]" placeholder="" />
+                <ElInput v-model="form.fuzzTarget[index]" placeholder="eg pdftotext" />
                 <ElButton
                   v-if="index === 0"
                   :icon="Plus"
-                  color="#626aef"
                   type="primary"
                   @click="addTarget"
                 />
@@ -191,7 +190,6 @@ const fileList = ref<UploadUserFile[]>([]);
                 <ElButton
                   v-if="index === 0"
                   :icon="Plus"
-                  color="#626aef"
                   type="primary"
                   @click="addCommand"
                 />
@@ -207,7 +205,6 @@ const fileList = ref<UploadUserFile[]>([]);
         <ElFormItem class="mt-10">
           <ElButton
             :loading="loading"
-            color="#626aef"
             type="primary"
             @click="onSubmit(ruleFormRef)"
           >
