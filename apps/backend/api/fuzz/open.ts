@@ -64,7 +64,7 @@ export default eventHandler(async (event) => {
   // execPromise(`bash run.sh ${project.id}> sh/run-${id}.log 2>&1`);
   spawnPromise('bash', ['run.sh', id], id)
     .then((output: string) => {
-      console.log('命令执行成功');
+      console.log('run.sh执行成功');
     })
     .catch((error: Error) => {
       console.error('命令执行失败:', error);

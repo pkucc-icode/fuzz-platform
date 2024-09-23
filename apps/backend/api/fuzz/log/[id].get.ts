@@ -28,7 +28,7 @@ export default eventHandler((event) => {
 
         if (lines) {
             lines.forEach((line, index) => {
-                console.log(`行 ${index + 1}: ${line}`);
+                // console.log(`行 ${index + 1}: ${line}`);
                 sendLogData(line);
             });
         }

@@ -50,6 +50,7 @@ export async function readFileContent(filePath: string): Promise<string> {
         const data = await fs.readFile(filePath, 'utf-8');
         return data;
     } catch (error) {
-        throw new Error(`Error reading file`);
+        console.error(`Error reading file ${filePath}`);
+        return `NOT FOUND ${filePath}`;
     }
 }

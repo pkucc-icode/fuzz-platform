@@ -62,6 +62,15 @@ const scrollToBottom = async () => {
                 <ElDescriptionsItem label="项目源码">
                     <ElLink type="info">{{ res?.repoUrl }}</ElLink>
                 </ElDescriptionsItem>
+                <ElDescriptionsItem label="编译器">{{ res?.param.compiler }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="默认编译配置">{{ res?.param.compilerSettings }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="模糊测试时间">{{ res?.param.fuzzTime }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="模糊测试目标">{{ res?.param.fuzzTarget }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="模糊测试命令">{{ res?.param.fuzzCommands }}</ElDescriptionsItem>
+            </ElDescriptions>
+        </ElCard>
+        <ElCard class="mb-4">
+            <ElDescriptions title="FUZZ报告" :column="3">
                 <ElDescriptionsItem label="Bug总数">{{ res?.bugs }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="开始时间">{{ res?.startTime }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="状态">{{ res?.status }}</ElDescriptionsItem>

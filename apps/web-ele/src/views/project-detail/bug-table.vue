@@ -42,9 +42,9 @@ function linkType(risk: string) {
     <TableHeader>
       <TableRow>
         <TableHead class="w-[100px]">
-          Bug 名称
+          名称
         </TableHead>
-        <TableHead>Bug 类型</TableHead>
+        <TableHead>类型</TableHead>
         <TableHead>风险等级</TableHead>
         <TableHead>首次发现时间</TableHead>
         <TableHead>总发现数</TableHead>
