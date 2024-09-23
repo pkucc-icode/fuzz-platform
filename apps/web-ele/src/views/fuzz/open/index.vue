@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -20,8 +20,9 @@ import {
 } from 'element-plus';
 import { Plus, Trash } from 'lucide-vue-next';
 
-import { openFuzz } from '#/api';
+import { getProject, openFuzz } from '#/api';
 import { router } from '#/router';
+import { useRoute } from 'vue-router';
 
 interface FuzzCommand {
   key: number;
@@ -29,6 +30,7 @@ interface FuzzCommand {
 }
 
 interface RuleForm {
+  id: string | undefined;
   name: string;
   repoUrl: string;
   compiler: string;
@@ -48,6 +50,7 @@ const form = reactive<RuleForm>({
   fuzzTime: '',
   name: '',
   repoUrl: '',
+  id: undefined,
 });
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -56,6 +59,28 @@ const rules = reactive<FormRules<RuleForm>>({
 
 const ruleFormRef = ref<FormInstance>();
 const loading = ref<boolean>(false);
+
+const route = useRoute();
+const { id } = route.query;
+
+onMounted(async () => {
+  if (id) {
+    const project = await getProject(id as string);
+    if (project) {
+      form.id = project.id;
+      form.name = project.name;
+      form.repoUrl = project.repoUrl;
+      const { param } = project;
+      form.compiler = param.compiler;
+      form.compilerSettings = param.compilerSettings;
+      form.fuzz = param.fuzz;
+      form.fuzzTime = param.fuzzTime;
+      form.fuzzTarget = param.fuzzTarget;
+      form.fuzzCommands = param.fuzzCommands;
+    }
+  }
+})
+
 
 const onSubmit = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;

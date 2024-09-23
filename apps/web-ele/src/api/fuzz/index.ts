@@ -7,6 +7,7 @@ export namespace FuzzApi {
   }
 
   export interface FuzzParams {
+    id: string | undefined;
     name: string;
     repoUrl: string;
     compiler: string;

@@ -56,6 +56,10 @@ async function stop(id: string) {
   }
 }
 
+async function edit(id: string) {
+  router.push(`/fuzz-admin/fuzz-open?id=${id}`)
+}
+
 async function remove(id: string) {
   try {
     await deleteProject(id);
@@ -85,6 +89,8 @@ async function remove(id: string) {
       <DropdownMenuItem @click="stop(project.id)">
         暂停
       </DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem @click="edit(project.id)">编辑</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click="remove(project.id)">删除</DropdownMenuItem>
       <DropdownMenuSeparator />

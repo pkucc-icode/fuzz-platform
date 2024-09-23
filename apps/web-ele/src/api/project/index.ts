@@ -16,7 +16,7 @@ export namespace ProjectApi {
       id: string;
       type: string;
       name: string;
-      repoUrl: string | null;
+      repoUrl: string;
       startTime: string;
       bugs: number;
       status: string;
