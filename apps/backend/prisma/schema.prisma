@@ -54,6 +54,7 @@ model Bug {
   type      String?
   risk      String?
   desc      String?
+  fix       String?
   // firstTime DateTime?
   firstTime String?
   total     Int?      @default(0)

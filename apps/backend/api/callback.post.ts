@@ -17,24 +17,21 @@ export default defineEventHandler(async (event) => {
   });
 
   if (bugs_found) {
-    const base = 'sh/crash_analysis_pdftotext/';
-
     await Promise.all(
       bugs_found.map(async (bug: Record<string, any>) => {
-        const report = await readFileContent(`${base}${bug.asan_report_file}`);
-        const crash = await readFileContent(`${base}${bug.crash_file_path}`);
-
+        const crash = await readFileContent(bug.crash_file_path);
         return prisma.bug.create({
           data: {
             name: bug.bug_id,
             type: bug.bug_type,
             risk: bug.risk_level,
             desc: bug.bug_description,
+            fix: bug.fix_recommendation,
             firstTime: bug.first_discovery_time,
             total: bug.total_discovery_count,
             codeText: bug.risk_code_display_file,
-            report: report, // 读取的文件内容
-            crash: crash,   // 读取的文件内容
+            report: bug.asan_report_file,
+            crash,
             projectId: id,
           },
         });

@@ -17,13 +17,20 @@ const { id } = route.query;
 const logContent = ref<string>(''); // 用于存储日志内容
 let eventSource: EventSource | null = null; // SSE 连接
 
+const sseURL = () => {
+    let link = `/fuzz/log/${id}`;
+    if (import.meta.env.VITE_GLOB_API_URL) {
+        link = `${import.meta.env.VITE_GLOB_API_URL}/fuzz/log/${id}`;
+    }
+    return link
+}
 
 onMounted(async () => {
     try {
         const projectRes = await getProject(id as string);
         res.value = projectRes;
         
-        eventSource = new EventSource(`/api/fuzz/log/${id}`);
+        eventSource = new EventSource(sseURL());
         eventSource.onmessage = async (event) => {
             logContent.value += `${event.data}\n`;
             await scrollToBottom();

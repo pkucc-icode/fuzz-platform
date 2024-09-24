@@ -1,5 +1,5 @@
 #!/bin/bash
-cd sh
+cd afl_fuzz
 rm -rf *output*
 rm -rf crash_*
 echo core | sudo tee /proc/sys/kernel/core_pattern
