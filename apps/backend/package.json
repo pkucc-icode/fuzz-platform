@@ -10,18 +10,18 @@
     "start": "nitro dev"
   },
   "dependencies": {
-    "@prisma/client": "5.19.1",
+    "@prisma/client": "5.20.0",
     "@types/formidable": "^3.4.5",
     "formidable": "^3.5.1",
     "jsonwebtoken": "^9.0.2",
     "nitropack": "^2.9.7"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^22.5.1",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.7.2",
     "h3": "^1.12.0",
-    "prisma": "^5.19.1",
+    "prisma": "^5.20.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   }
 }
