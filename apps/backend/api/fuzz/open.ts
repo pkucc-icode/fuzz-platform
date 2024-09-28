@@ -87,7 +87,7 @@ async function startOpenFuzz(id: string, name: string, repoUrl: string, filePath
   const data = {
     "program_name": name,
     "url": repoUrl,
-    "source_code_path": filePath,
+    "source_code_path": filePath || '',
     "afl_fuzz_args": {
       "task_id": 1,
       "Default_compiler": {
