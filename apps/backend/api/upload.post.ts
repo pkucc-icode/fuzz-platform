@@ -34,9 +34,5 @@ export default eventHandler(async (event) => {
     });
   });
 
-  // 输出解析的表单字段和文件信息（可选）
-  console.log(fields);
-  console.log(files);
-  
-  return useResponseSuccess("OK");
+  return useResponseSuccess(files.file);
 });

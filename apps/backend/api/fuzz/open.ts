@@ -15,6 +15,7 @@ export default eventHandler(async (event) => {
     id,
     name,
     repoUrl,
+    filePath,
     compiler,
     compilerSettings,
     fuzz,
@@ -34,6 +35,7 @@ export default eventHandler(async (event) => {
         type: 'openFuzz',
         name,
         repoUrl,
+        filePath,
         param: {
           repoUrl,
           compiler: compiler || 'llvm-clang',
@@ -46,7 +48,7 @@ export default eventHandler(async (event) => {
       },
     });
 
-    await startOpenFuzz(id, name, repoUrl, compiler, compilerSettings, fuzz, fuzzTime, fuzzTarget);
+    await startOpenFuzz(id, name, repoUrl, filePath, compiler, compilerSettings, fuzz, fuzzTime, fuzzTarget);
 
     return useResponseSuccess(project);
 
@@ -56,6 +58,7 @@ export default eventHandler(async (event) => {
         type: 'openFuzz',
         name,
         repoUrl,
+        filePath,
         param: {
           repoUrl,
           compiler: compiler || 'llvm-clang',
@@ -70,7 +73,7 @@ export default eventHandler(async (event) => {
 
     const { id } = project;
 
-    await startOpenFuzz(id, name, repoUrl, compiler, compilerSettings, fuzz, fuzzTime, fuzzTarget);
+    await startOpenFuzz(id, name, repoUrl, filePath, compiler, compilerSettings, fuzz, fuzzTime, fuzzTarget);
 
     return useResponseSuccess(project);
   }
@@ -78,13 +81,13 @@ export default eventHandler(async (event) => {
 });
 
 
-async function startOpenFuzz(id: string, name: string, repoUrl: string, compiler: string,
+async function startOpenFuzz(id: string, name: string, repoUrl: string, filePath: string, compiler: string,
    compilerSettings: string, fuzz: string, fuzzTime: string, fuzzTarget: string
 ) {
   const data = {
     "program_name": name,
     "url": repoUrl,
-    "source_code_path": "",
+    "source_code_path": filePath,
     "afl_fuzz_args": {
       "task_id": 1,
       "Default_compiler": {

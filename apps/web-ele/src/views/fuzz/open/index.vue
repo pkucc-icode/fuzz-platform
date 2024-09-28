@@ -33,6 +33,7 @@ interface RuleForm {
   id: string | undefined;
   name: string;
   repoUrl: string;
+  filePath: string | undefined;
   compiler: string;
   compilerSettings: string;
   fuzz: string;
@@ -50,6 +51,7 @@ const form = reactive<RuleForm>({
   fuzzTime: '',
   name: '',
   repoUrl: '',
+  filePath: undefined,
   id: undefined,
 });
 
@@ -59,6 +61,7 @@ const rules = reactive<FormRules<RuleForm>>({
 
 const ruleFormRef = ref<FormInstance>();
 const loading = ref<boolean>(false);
+const fileList = ref<UploadUserFile[]>([]);
 
 const route = useRoute();
 const { id } = route.query;
@@ -131,7 +134,9 @@ const addCommand = () => {
   form.fuzzCommands.push('');
 };
 
-const fileList = ref<UploadUserFile[]>([]);
+const afterUpload = (response: any) => {
+  form.filePath = response.data[0].filepath;
+}
 </script>
 
 <template>
@@ -159,6 +164,8 @@ const fileList = ref<UploadUserFile[]>([]);
               <ElUpload
                 v-model:file-list="fileList"
                 action="/api/upload"
+                :on-success="afterUpload"
+                accept="application/zip"
                 class="upload-demo"
               >
                 <ElButton type="primary">点击上传代码</ElButton>
