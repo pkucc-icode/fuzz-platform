@@ -46,10 +46,10 @@
     "@vben-core/icons": "workspace:*",
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
-    "@vueuse/core": "^11.0.3",
+    "@vueuse/core": "^11.1.0",
     "class-variance-authority": "^0.7.0",
-    "lucide-vue-next": "^0.436.0",
-    "radix-vue": "^1.9.5",
-    "vue": "^3.4.38"
+    "lucide-vue-next": "^0.451.0",
+    "radix-vue": "^1.9.7",
+    "vue": "^3.5.11"
   }
 }
