@@ -12,40 +12,55 @@ import {
   SvgFinishIcon,
   SvgProjectIcon,
 } from '@vben/icons';
-
+import { ref, watchEffect } from 'vue';
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
 import ProjectTable from './project-table/index.vue'
+import { listProject } from '#/api';
+import { useQuery } from '@tanstack/vue-query';
 
-const overviewItems: AnalysisOverviewItem[] = [
-  {
-    icon: SvgProjectIcon,
-    title: '项目数量',
-    totalTitle: '项目数量',
-    totalValue: 120_000,
-    value: 2000,
-  },
-  {
-    icon: SvgFinishIcon,
-    title: '已完成任务',
-    totalTitle: '已完成任务',
-    totalValue: 500_000,
-    value: 20_000,
-  },
-  {
-    icon: SvgDoingIcon,
-    title: '进行中任务',
-    totalTitle: '进行中任务',
-    totalValue: 120_000,
-    value: 8000,
-  },
-  {
-    icon: SvgBugIcon,
-    title: '总Bug数量',
-    totalTitle: '总Bug数量',
-    totalValue: 50_000,
-    value: 5000,
-  },
-];
+const { data } = useQuery({
+    queryKey: ['projects'],
+    queryFn: listProject,
+});
+const overviewItems = ref<AnalysisOverviewItem[]>([]);
+watchEffect(() => {
+  const projects: Record<string, any>[] = data.value;
+  if (projects) {
+    const all = projects.length;
+    const finished = projects.filter(p => p.status === 'SUCCESS').length;
+    const running = projects.filter(p => p.status === 'RUNNING').length;
+    overviewItems.value = [
+      {
+        icon: SvgProjectIcon,
+        title: '项目数量',
+        totalTitle: '项目数量',
+        totalValue: all,
+        value: all,
+      },
+      {
+        icon: SvgFinishIcon,
+        title: '已完成任务',
+        totalTitle: '已完成任务',
+        totalValue: finished,
+        value: finished,
+      },
+      {
+        icon: SvgDoingIcon,
+        title: '进行中任务',
+        totalTitle: '进行中任务',
+        totalValue: running,
+        value: running,
+      },
+      {
+        icon: SvgBugIcon,
+        title: '总Bug数量',
+        totalTitle: '总Bug数量',
+        totalValue: 13,
+        value: 13,
+      },
+    ];
+  }
+})
 
 </script>
 
