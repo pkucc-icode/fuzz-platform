@@ -29,6 +29,10 @@ watchEffect(() => {
     const all = projects.length;
     const finished = projects.filter(p => p.status === 'SUCCESS').length;
     const running = projects.filter(p => p.status === 'RUNNING').length;
+    // 使用 reduce 方法对 bugs 字段求和
+    const totalBugs = projects.reduce((sum, project) => {
+      return sum + (project.bugs || 0); // 如果 bugs 字段不存在，默认为 0
+    }, 0);
     overviewItems.value = [
       {
         icon: SvgProjectIcon,
@@ -55,8 +59,8 @@ watchEffect(() => {
         icon: SvgBugIcon,
         title: '总Bug数量',
         totalTitle: '总Bug数量',
-        totalValue: 13,
-        value: 13,
+        totalValue: totalBugs,
+        value: totalBugs,
       },
     ];
   }
