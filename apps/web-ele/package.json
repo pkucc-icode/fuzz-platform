@@ -18,6 +18,7 @@
   "scripts": {
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
+    "deploy": "sudo cp -r dist/* /usr/share/nginx/html/",
     "dev": "pnpm vite --mode development",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
