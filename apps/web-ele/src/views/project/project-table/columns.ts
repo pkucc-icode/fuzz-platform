@@ -3,7 +3,7 @@ import type { ColumnDef } from '@tanstack/vue-table';
 import { h } from 'vue';
 
 import { Checkbox } from '@vben/common-ui';
-
+import { router } from '#/router';
 import ColumnHeader from './column-header.vue';
 import RowActions from './row-actions.vue';
 import { Loader, CirclePause, Check, CircleX } from 'lucide-vue-next';
@@ -38,7 +38,16 @@ export const columns: ColumnDef<Project>[] = [
   },
   {
     accessorKey: 'name',
-    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('name')),
+    cell: ({ row }) => {
+      const id = row.original.id;
+      return h('a', { 
+        class: 'lowercase cursor-pointer hover:underline',
+        onClick: (e) => {
+          e.preventDefault();
+          router.push(`/project-detail?id=${id}`);
+        },
+       }, row.getValue('name'));
+    },
     header: ({ column }) =>
       h(ColumnHeader, {
         column,
