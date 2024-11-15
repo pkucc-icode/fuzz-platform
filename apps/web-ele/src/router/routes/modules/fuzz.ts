@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { VBEN_LOGO_URL } from '@vben/constants';
+// import { VBEN_LOGO_URL } from '@vben/constants';
 
 import { BasicLayout } from '#/layouts';
 import { $t } from '#/locales';
@@ -42,6 +42,15 @@ const routes: RouteRecordRaw[] = [
         meta: {
           icon: 'lucide:copyright',
           title: $t('page.fuzz.close'),
+        },
+      },
+      {
+        name: 'CodeAudit',
+        path: '/fuzz-admin/code-audit',
+        component: () => import('#/views/fuzz/audit/index.vue'),
+        meta: {
+          icon: 'icon-park-outline:audit',
+          title: $t('page.fuzz.audit'),
         },
       },
     ],

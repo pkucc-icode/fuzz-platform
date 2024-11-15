@@ -12,6 +12,7 @@ import {
 import { MoreHorizontal } from 'lucide-vue-next';
 import { ElMessage } from 'element-plus';
 import { startProject, stopProject, deleteProject } from '#/api';
+import { codeAudit } from '#/api';
 import { useQueryClient } from '@tanstack/vue-query';
 
 defineProps<{
@@ -44,6 +45,19 @@ async function start(id: string) {
   router.push(`/analytics`);
 }
 
+async function audit(data: any) {
+  try {
+    await codeAudit(data);
+    ElMessage.success('操作成功');
+    queryClient.invalidateQueries({
+      queryKey: ["projects"]
+    });
+  } catch {
+    ElMessage.error('提交失败');
+  }
+  router.push(`/analytics`);
+}
+
 async function stop(id: string) {
   try {
     await stopProject(id);
@@ -55,7 +69,7 @@ async function stop(id: string) {
     ElMessage.error('提交失败');
   }
 }
-
+                                                                                                 
 async function edit(id: string) {
   router.push(`/fuzz-admin/fuzz-open?id=${id}`)
 }
@@ -94,7 +108,9 @@ async function remove(id: string) {
       <DropdownMenuSeparator />
       <DropdownMenuItem @click="remove(project.id)">删除</DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem @click="start(project.id)">重新开始</DropdownMenuItem>
+      <DropdownMenuItem @click="start(project.id)">重新Fuzz</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem @click="audit(project.id)">代码审计</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

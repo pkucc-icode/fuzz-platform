@@ -9,13 +9,13 @@ export namespace FuzzApi {
   export interface FuzzParams {
     id: string | undefined;
     name: string;
-    repoUrl: string;
-    compiler: string;
-    compilerSettings: string;
-    fuzz: string;
-    fuzzTime: string;
-    fuzzTarget: string[];
-    fuzzCommands: string[];
+    repoUrl?: string;
+    compiler?: string;
+    compilerSettings?: string;
+    fuzz?: string;
+    fuzzTime?: string;
+    fuzzTarget?: string[];
+    fuzzCommands?: string[];
   }
 
   export interface WebFuzzParams {
@@ -26,7 +26,6 @@ export namespace FuzzApi {
   export interface FuzzResult {
     data: string;
   }
-
 
 }
 
@@ -49,4 +48,11 @@ export async function webFuzz(data: FuzzApi.WebFuzzParams) {
  */
 export async function closeFuzz(data: FuzzApi.FuzzParams) {
   return requestClient.post<FuzzApi.FuzzResult>('/fuzz/close', data);
+}
+
+/**
+ * 代码审计
+ */
+export async function codeAudit(data: FuzzApi.FuzzParams) {
+  return requestClient.post<FuzzApi.FuzzResult>('/', data);
 }

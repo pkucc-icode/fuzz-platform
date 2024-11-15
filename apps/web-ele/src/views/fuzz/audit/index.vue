@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -12,21 +12,35 @@ import {
   ElInput,
   ElMessage,
   ElRow,
+  ElSpace,
+  ElUpload,
   type FormInstance,
   type FormRules,
+  type UploadUserFile,
 } from 'element-plus';
+import { Plus, Trash } from 'lucide-vue-next';
 
-import { webFuzz } from '#/api';
+import { codeAudit, getProject, openFuzz } from '#/api';
 import { router } from '#/router';
+import { useRoute } from 'vue-router';
+
+interface FuzzCommand {
+  key: number;
+  value: string;
+}
 
 interface RuleForm {
+  id: string | undefined;
   name: string;
-  url: string;
+  repoUrl: string;
+  filePath: string | undefined;
 }
 
 const form = reactive<RuleForm>({
   name: '',
-  url: '',
+  repoUrl: '',
+  filePath: undefined,
+  id: undefined,
 });
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -35,6 +49,22 @@ const rules = reactive<FormRules<RuleForm>>({
 
 const ruleFormRef = ref<FormInstance>();
 const loading = ref<boolean>(false);
+const fileList = ref<UploadUserFile[]>([]);
+
+const route = useRoute();
+const { id } = route.query;
+
+onMounted(async () => {
+  if (id) {
+    const project = await getProject(id as string);
+    if (project) {
+      form.id = project.id;
+      form.name = project.name;
+      form.repoUrl = project.repoUrl;
+    }
+  }
+})
+
 
 const onSubmit = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
@@ -43,7 +73,7 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
     if (valid) {
       loading.value = true;
       try {
-        await webFuzz(form);
+        await codeAudit(form);
       } catch {
         ElMessage.error('提交失败');
       } finally {
@@ -63,15 +93,18 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+const afterUpload = (response: any) => {
+  form.filePath = response.data[0].filepath;
+}
 </script>
 
 <template>
-  <Page description="支持多种编程语言" title="Web Fuzz">
+  <Page description="支持多种编程语言" title="">
     <ElCard class="mb-5">
       <ElForm
         ref="ruleFormRef"
         :model="form"
-        :rules="rules"u
+        :rules="rules"
         class="mx-auto mt-10 max-w-[800px]"
         label-width="auto"
       >
@@ -80,11 +113,22 @@ const resetForm = (formEl: FormInstance | undefined) => {
             <ElFormItem label="项目名" prop="name">
               <ElInput v-model="form.name" placeholder="请输入项目名" />
             </ElFormItem>
-            <ElFormItem label="Web URL" prop="url">
+            <ElFormItem label="项目代码" prop="repoUrl">
               <ElInput
-                v-model="form.url"
-                placeholder="请输入web地址"
+                v-model="form.repoUrl"
+                placeholder="请输入代码仓库地址"
               />
+            </ElFormItem>
+            <ElFormItem label="or">
+              <ElUpload
+                v-model:file-list="fileList"
+                action="/api/upload"
+                :on-success="afterUpload"
+                accept="application/zip"
+                class="upload-demo"
+              >
+                <ElButton type="primary">点击上传代码</ElButton>
+              </ElUpload>
             </ElFormItem>
           </ElCol>
         </ElRow>

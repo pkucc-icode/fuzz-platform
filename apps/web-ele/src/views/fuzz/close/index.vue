@@ -18,7 +18,7 @@ import {
   type UploadUserFile,
 } from 'element-plus';
 
-import { openFuzz } from '#/api';
+import { closeFuzz } from '#/api';
 import { router } from '#/router';
 
 interface FuzzCommand {
@@ -27,28 +27,13 @@ interface FuzzCommand {
 }
 
 interface RuleForm {
+  id: string | undefined;
   name: string;
   repoUrl: string;
-  compiler: string;
-  compilerSettings: string;
-  fuzz: string;
-  fuzzTime: string;
-  fuzzTarget: string;
-  fuzzCommands: FuzzCommand[];
 }
 
 const form = reactive<RuleForm>({
-  compiler: '',
-  compilerSettings: '',
-  fuzz: '',
-  fuzzCommands: [
-    {
-      key: Date.now(),
-      value: '',
-    },
-  ],
-  fuzzTarget: '',
-  fuzzTime: '',
+  id: undefined,
   name: '',
   repoUrl: '',
 });
@@ -67,7 +52,7 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
     if (valid) {
       loading.value = true;
       try {
-        await openFuzz(form);
+        await closeFuzz(form);
       } catch {
         ElMessage.error('提交失败');
       } finally {
@@ -97,7 +82,7 @@ const fileList = ref<UploadUserFile[]>([]);
         ref="ruleFormRef"
         :model="form"
         :rules="rules"
-        class="mx-auto mt-10 max-w-[900px]"
+        class="mx-auto mt-10 max-w-[800px]"
         label-width="auto"
       >
         <ElRow :gutter="50">
@@ -111,7 +96,7 @@ const fileList = ref<UploadUserFile[]>([]);
                 action="/upload"
                 class="upload-demo"
               >
-                <ElButton color="#626aef" type="primary">点击上传</ElButton>
+                <ElButton type="primary">点击上传</ElButton>
               </ElUpload>
             </ElFormItem>
           </ElCol>
@@ -119,7 +104,6 @@ const fileList = ref<UploadUserFile[]>([]);
         <ElFormItem class="mt-10">
           <ElButton
             :loading="loading"
-            color="#626aef"
             type="primary"
             @click="onSubmit(ruleFormRef)"
           >

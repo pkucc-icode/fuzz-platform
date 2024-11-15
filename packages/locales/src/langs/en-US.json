@@ -19,6 +19,13 @@
       "antdv": "Ant Design Vue Version",
       "naive-ui": "Naive UI Version",
       "element-plus": "Element Plus Version"
+    },
+    "fuzz": {
+      "title": "New Task",
+      "open": "Open Source Fuzz",
+      "web": "Web Fuzz",
+      "close": "Close Source Fuzz",
+      "audit": "Code Audit"
     }
   },
   "common": {

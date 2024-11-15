@@ -32,7 +32,8 @@
       "title": "新建任务",
       "open": "源码 Fuzz",
       "web": "Web Fuzz",
-      "close": "闭源 Fuzz"
+      "close": "闭源 Fuzz",
+      "audit": "代码审计"
     }
   },
   "common": {
