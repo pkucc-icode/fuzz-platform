@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@radix-icons/vue": "^1.0.0",
-    "@tanstack/vue-query": "^5.55.4",
+    "@tanstack/vue-query": "^5.60.5",
     "@tanstack/vue-table": "^8.20.5",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
@@ -44,13 +44,13 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "@vueuse/core": "^11.0.3",
+    "@vueuse/core": "^11.2.0",
     "dayjs": "^1.11.13",
-    "element-plus": "^2.8.1",
-    "lucide-vue-next": "^0.436.0",
-    "pinia": "2.2.2",
-    "vue": "^3.4.38",
-    "vue-router": "^4.4.3"
+    "element-plus": "^2.8.8",
+    "lucide-vue-next": "^0.460.0",
+    "pinia": "2.2.6",
+    "vue": "^3.5.13",
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "unplugin-element-plus": "^0.8.0"
