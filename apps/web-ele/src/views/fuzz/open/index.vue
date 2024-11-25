@@ -2,10 +2,10 @@
 import { onMounted, reactive, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
-
+import { Card, CardContent } from '@vben/common-ui';
 import {
   ElButton,
-  ElCard,
+  // ElCard,
   ElCol,
   ElForm,
   ElFormItem,
@@ -24,10 +24,10 @@ import { getProject, openFuzz } from '#/api';
 import { router } from '#/router';
 import { useRoute } from 'vue-router';
 
-interface FuzzCommand {
-  key: number;
-  value: string;
-}
+// interface FuzzCommand {
+//   key: number;
+//   value: string;
+// }
 
 interface RuleForm {
   id: string | undefined;
@@ -87,6 +87,7 @@ onMounted(async () => {
 
 const onSubmit = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
+  
 
   await formEl.validate(async (valid, fields) => {
     if (valid) {
@@ -141,110 +142,121 @@ const afterUpload = (response: any) => {
 
 <template>
   <Page description="支持多种编程语言" title="源码 Fuzz">
-    <ElCard class="mb-5">
-      <ElForm
-        ref="ruleFormRef"
-        :model="form"
-        :rules="rules"
-        class="mx-auto mt-10 max-w-[900px]"
-        label-width="auto"
-      >
-        <ElRow :gutter="50">
-          <ElCol :span="12">
-            <ElFormItem label="项目名" prop="name">
-              <ElInput v-model="form.name" placeholder="请输入项目名" />
-            </ElFormItem>
-            <ElFormItem label="项目代码" prop="repoUrl">
-              <ElInput
-                v-model="form.repoUrl"
-                placeholder="请输入代码仓库地址"
-              />
-            </ElFormItem>
-            <ElFormItem label="or">
-              <ElUpload
-                v-model:file-list="fileList"
-                action="/api/upload"
-                :on-success="afterUpload"
-                accept="application/zip"
-                class="upload-demo"
-              >
-                <ElButton type="primary">点击上传代码</ElButton>
-              </ElUpload>
-            </ElFormItem>
-            <ElFormItem label="编译器">
-              <ElInput
-                v-model="form.compiler"
-                placeholder="Default llvm-clang"
-              />
-            </ElFormItem>
-          </ElCol>
+    <!-- <ElCard class="mb-5"> -->
+    <Card>
+      <CardContent>
+        <ElForm
+          ref="ruleFormRef"
+          :model="form"
+          :rules="rules"
+          class="mx-auto mt-10"
+          label-width="auto"
+        >
+          <ElRow :gutter="24" justify="center">
+            <ElCol :xs="18" :sm="16" :md="10" :lg="9" :xl="6">
+              <ElFormItem label="项目名" prop="name" label-position="left">
+                <ElInput v-model="form.name" placeholder="请输入项目名" />
+              </ElFormItem>
+              <ElFormItem label="项目代码" prop="repoUrl" label-position="left">
+                <ElInput
+                  v-model="form.repoUrl"
+                  placeholder="请输入代码仓库地址"
+                />
+              </ElFormItem>
+              <ElFormItem label="or">
+                <ElUpload
+                  v-model:file-list="fileList"
+                  action="/api/upload"
+                  :on-success="afterUpload"
+                  accept="application/zip"
+                  class="upload-demo"
+                >
+                  <ElButton type="primary">点击上传代码</ElButton>
+                </ElUpload>
+              </ElFormItem>
+              <ElFormItem label="编译器" label-position="left">
+                <ElInput
+                  v-model="form.compiler"
+                  placeholder="Default llvm-clang"
+                />
+              </ElFormItem>
+              <ElFormItem label="默认编译配置" label-position="left">
+                <ElInput
+                  v-model="form.compilerSettings"
+                  placeholder="Default null"
+                />
+              </ElFormItem>
+              <div class="my-10">
+                <ElButton
+                  :loading="loading"
+                  type="primary"
+                  @click="onSubmit(ruleFormRef)"
+                >
+                  提交
+                </ElButton>
+                <ElButton plain @click="resetForm(ruleFormRef)">重置</ElButton>
+              </div>
+            </ElCol>
 
-          <ElCol :span="12">
-            <ElFormItem label="默认编译配置">
-              <ElInput
-                v-model="form.compilerSettings"
-                placeholder="Default null"
-              />
-            </ElFormItem>
-            <ElFormItem label="模糊器">
-              <ElInput v-model="form.fuzz" placeholder="Default AFL++" />
-            </ElFormItem>
-            <ElFormItem label="模糊测试时间">
-              <ElInput v-model="form.fuzzTime" placeholder="Default 60s" />
-            </ElFormItem>
-            <ElFormItem
-              v-for="(item, index) in form.fuzzTarget"
-              :key="index"
-              label="模糊测试目标程序"
-            >
-              <ElSpace direction="horizontal">
-                <ElInput v-model="form.fuzzTarget[index]" placeholder="eg pdftotext" />
-                <ElButton
-                  v-if="index === 0"
-                  :icon="Plus"
-                  type="primary"
-                  @click="addTarget"
-                />
-                <ElButton
-                  v-if="index !== 0"
-                  :icon="Trash"
-                  @click.prevent="removeTarget(item)"
-                />
-              </ElSpace>
-            </ElFormItem>
-            <ElFormItem
-              v-for="(item, index) in form.fuzzCommands"
-              :key="index"
-              label="模糊测试命令"
-            >
-              <ElSpace direction="horizontal">
-                <ElInput v-model="form.fuzzCommands[index]" placeholder="" />
-                <ElButton
-                  v-if="index === 0"
-                  :icon="Plus"
-                  type="primary"
-                  @click="addCommand"
-                />
-                <ElButton
-                  v-if="index !== 0"
-                  :icon="Trash"
-                  @click.prevent="removeCommand(item)"
-                />
-              </ElSpace>
-            </ElFormItem>
-          </ElCol>
-        </ElRow>
-        <ElFormItem class="mt-10">
-          <ElButton
-            :loading="loading"
-            type="primary"
-            @click="onSubmit(ruleFormRef)"
-          >
-            提交
-          </ElButton>
-          <ElButton plain @click="resetForm(ruleFormRef)">重置</ElButton>
-        </ElFormItem>
-      </ElForm>
-    </ElCard>
+            <ElCol :xs="18" :sm="16" :md="10" :lg="9" :xl="8">
+              <ElFormItem label="模糊器" label-position="left">
+                <ElInput v-model="form.fuzz" placeholder="Default AFL++" />
+              </ElFormItem>
+              <ElFormItem label="模糊测试时间" label-position="left">
+                <ElInput v-model="form.fuzzTime" placeholder="Default 60s" />
+              </ElFormItem>
+              <ElFormItem
+                v-for="(item, index) in form.fuzzTarget"
+                :key="index"
+                label="模糊测试目标程序"
+                label-position="left"
+              >
+                <ElSpace direction="horizontal">
+                  <ElInput v-model="form.fuzzTarget[index]" placeholder="eg pdftotext" />
+                  <ElButton
+                    v-if="index === 0"
+                    :icon="Plus"
+                    type="primary"
+                    @click="addTarget"
+                  />
+                  <ElButton
+                    v-if="index !== 0"
+                    :icon="Trash"
+                    @click.prevent="removeTarget(item)"
+                  />
+                </ElSpace>
+              </ElFormItem>
+              <ElFormItem
+                v-for="(item, index) in form.fuzzCommands"
+                :key="index"
+                label="模糊测试命令"
+                label-position="left"
+              >
+                <ElSpace direction="horizontal">
+                  <ElInput v-model="form.fuzzCommands[index]" placeholder="" />
+                  <ElButton
+                    v-if="index === 0"
+                    :icon="Plus"
+                    type="primary"
+                    @click="addCommand"
+                  />
+                  <ElButton
+                    v-if="index !== 0"
+                    :icon="Trash"
+                    @click.prevent="removeCommand(item)"
+                  />
+                </ElSpace>
+              </ElFormItem>
+            </ElCol>
+          </ElRow>
+          <!-- <ElRow :gutter="24" justify="center">
+            <ElCol :xs="18" :sm="16" :md="20" :lg="18" :xl="16">
+              
+            </ElCol>
+          </ElRow> -->
+        </ElForm>
+      </CardContent>
+    </Card>
+    <!-- </ElCard> -->
   </Page>
 </template>
