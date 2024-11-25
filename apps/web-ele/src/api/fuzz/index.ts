@@ -16,6 +16,7 @@ export namespace FuzzApi {
     fuzzTime?: string;
     fuzzTarget?: string[];
     fuzzCommands?: string[];
+    filePath?: string;
   }
 
   export interface WebFuzzParams {
@@ -54,5 +55,5 @@ export async function closeFuzz(data: FuzzApi.FuzzParams) {
  * 代码审计
  */
 export async function codeAudit(data: FuzzApi.FuzzParams) {
-  return requestClient.post<FuzzApi.FuzzResult>('/', data);
+  return requestClient.post<FuzzApi.FuzzResult>('/scan/source', data);
 }

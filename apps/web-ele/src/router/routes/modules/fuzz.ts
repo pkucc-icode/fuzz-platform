@@ -9,7 +9,7 @@ const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
-      badgeType: 'dot',
+      // badgeType: 'dot',
       icon: 'lucide:file-plus',
       order: 9999,
       title: $t('page.fuzz.title'),

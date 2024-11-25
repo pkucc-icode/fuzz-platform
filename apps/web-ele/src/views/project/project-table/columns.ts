@@ -7,6 +7,7 @@ import { router } from '#/router';
 import ColumnHeader from './column-header.vue';
 import RowActions from './row-actions.vue';
 import { Loader, CirclePause, Check, CircleX } from 'lucide-vue-next';
+import { tableDateFormat } from '#/utils/date';
 
 export interface Project {
   id: number;
@@ -77,7 +78,7 @@ export const columns: ColumnDef<Project>[] = [
   {
     accessorKey: 'startTime',
     cell: ({ row }) =>
-      h('div', { class: 'capitalize' }, row.getValue('startTime')),
+      h('div', { class: 'capitalize' }, tableDateFormat(row.getValue('startTime'))),
     header: ({ column }) =>
       h(ColumnHeader, {
         column,

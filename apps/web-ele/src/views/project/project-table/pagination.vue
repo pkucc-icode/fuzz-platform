@@ -30,7 +30,7 @@ defineProps<DataTablePaginationProps>();
     </div>
     <div class="flex items-center space-x-6 lg:space-x-8">
       <div class="flex items-center space-x-2">
-        <p class="text-sm font-medium">Rows per page</p>
+        <p class="text-sm font-medium">每页显示</p>
         <Select
           :model-value="`${table.getState().pagination.pageSize}`"
           @update:model-value="table.setPageSize"
@@ -54,7 +54,7 @@ defineProps<DataTablePaginationProps>();
       <div
         class="flex w-[100px] items-center justify-center text-sm font-medium"
       >
-        Page {{ table.getState().pagination.pageIndex + 1 }} of
+        页 {{ table.getState().pagination.pageIndex + 1 }} /
         {{ table.getPageCount() }}
       </div>
       <div class="flex items-center space-x-2">
@@ -64,7 +64,7 @@ defineProps<DataTablePaginationProps>();
           variant="outline"
           @click="table.setPageIndex(0)"
         >
-          <span class="sr-only">Go to first page</span>
+          <span class="sr-only">第一页</span>
           <DoubleArrowLeftIcon class="h-4 w-4" />
         </Button>
         <Button
@@ -73,7 +73,7 @@ defineProps<DataTablePaginationProps>();
           variant="outline"
           @click="table.previousPage()"
         >
-          <span class="sr-only">Go to previous page</span>
+          <span class="sr-only">上一页</span>
           <ChevronLeftIcon class="h-4 w-4" />
         </Button>
         <Button
@@ -82,7 +82,7 @@ defineProps<DataTablePaginationProps>();
           variant="outline"
           @click="table.nextPage()"
         >
-          <span class="sr-only">Go to next page</span>
+          <span class="sr-only">下一页</span>
           <ChevronRightIcon class="h-4 w-4" />
         </Button>
         <Button
@@ -91,7 +91,7 @@ defineProps<DataTablePaginationProps>();
           variant="outline"
           @click="table.setPageIndex(table.getPageCount() - 1)"
         >
-          <span class="sr-only">Go to last page</span>
+          <span class="sr-only">最后一页</span>
           <DoubleArrowRightIcon class="h-4 w-4" />
         </Button>
       </div>

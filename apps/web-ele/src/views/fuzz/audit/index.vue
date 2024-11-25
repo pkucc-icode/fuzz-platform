@@ -72,7 +72,8 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
     if (valid) {
       loading.value = true;
       try {
-        await codeAudit(form);
+        const res = await codeAudit(form);
+        console.log(res);
       } catch {
         ElMessage.error('提交失败');
       } finally {

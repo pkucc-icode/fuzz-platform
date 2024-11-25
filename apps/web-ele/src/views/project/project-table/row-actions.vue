@@ -18,6 +18,11 @@ import { useQueryClient } from '@tanstack/vue-query';
 defineProps<{
   project: {
     id: string;
+    type: string;
+    status: string;
+    // name: string;
+    // repoUrl: string;
+    // filePath: string;
   };
 }>();
 
@@ -45,18 +50,18 @@ async function start(id: string) {
   router.push(`/analytics`);
 }
 
-async function audit(data: any) {
-  try {
-    await codeAudit(data);
-    ElMessage.success('操作成功');
-    queryClient.invalidateQueries({
-      queryKey: ["projects"]
-    });
-  } catch {
-    ElMessage.error('提交失败');
-  }
-  router.push(`/analytics`);
-}
+// async function audit(data: any) {
+//   try {
+//     await codeAudit({id: data.id, name: data.name, repoUrl: data.repoUrl, filePath: data.filePath});
+//     ElMessage.success('操作成功');
+//     queryClient.invalidateQueries({
+//       queryKey: ["projects"]
+//     });
+//   } catch {
+//     ElMessage.error('提交失败');
+//   }
+//   router.push(`/analytics`);
+// }
 
 async function stop(id: string) {
   try {
@@ -70,8 +75,13 @@ async function stop(id: string) {
   }
 }
                                                                                                  
-async function edit(id: string) {
-  router.push(`/fuzz-admin/fuzz-open?id=${id}`)
+async function edit(id: string, type: string) {
+  if(type==='openFuzz'){
+    router.push(`/fuzz-admin/fuzz-open?id=${id}`)
+  }
+  else if(type==='sourceScan'){
+    router.push(`/fuzz-admin/code-audit?id=${id}`)
+  }
 }
 
 async function remove(id: string) {
@@ -104,13 +114,13 @@ async function remove(id: string) {
         暂停
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem @click="edit(project.id)">编辑</DropdownMenuItem>
+      <DropdownMenuItem @click="edit(project.id, project.type)">编辑</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click="remove(project.id)">删除</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem @click="start(project.id)">重新Fuzz</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem @click="audit(project.id)">代码审计</DropdownMenuItem>
+      <DropdownMenuSeparator  v-if="project.type==='openFuzz'" />
+      <DropdownMenuItem @click="start(project.id)"  v-if="project.type==='openFuzz'" :disabled="project.status==='RUNNING'">重新Fuzz</DropdownMenuItem>
+      <DropdownMenuSeparator  v-if="project.type==='openFuzz'" />
+      <DropdownMenuItem  v-if="project.type==='openFuzz'" :disabled="project.status==='RUNNING'">代码审计</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

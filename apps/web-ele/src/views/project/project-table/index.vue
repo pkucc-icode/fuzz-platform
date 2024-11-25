@@ -3,7 +3,7 @@ import type { Project } from './columns';
 
 import { onMounted, ref } from 'vue';
 
-import { ElCard } from 'element-plus';
+import { Card, CardContent } from '@vben/common-ui';
 
 import { columns } from './columns';
 import DataTable from './data-table.vue';
@@ -18,12 +18,14 @@ const { data } = useQuery({
 </script>
 
 <template>
-  <ElCard>
-    <template #header>
-      <div class="text-xl font-bold">
-        <span>项目</span>
-      </div>
-    </template>
-    <DataTable :columns="columns" :data="data || []" />
-  </ElCard>
+  <Card>
+    <CardContent>
+      <template #header>
+        <div class="text-xl font-bold">
+          <span>项目</span>
+        </div>
+      </template>
+      <DataTable :columns="columns" :data="data || []" />
+    </CardContent>
+  </Card>
 </template>
