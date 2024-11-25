@@ -8,6 +8,7 @@ import ColumnHeader from './column-header.vue';
 import RowActions from './row-actions.vue';
 import { Loader, CirclePause, Check, CircleX } from 'lucide-vue-next';
 import { tableDateFormat } from '#/utils/date';
+import { ElTag } from 'element-plus';
 
 export interface Project {
   id: number;
@@ -57,7 +58,9 @@ export const columns: ColumnDef<Project>[] = [
   },
   {
     accessorKey: 'type',
-    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('type')),
+    cell: ({ row }) =>{
+      return h(ElTag, { class: 'lowercase', type: 'info' }, row.getValue('type'))
+    },
     header: ({ column }) =>
       h(ColumnHeader, {
         column,

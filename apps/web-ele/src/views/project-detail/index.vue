@@ -30,16 +30,16 @@ onMounted(async () => {
         const projectRes = await getProject(id as string);
         res.value = projectRes;
         
-        // eventSource = new EventSource(sseURL());
-        // eventSource.onmessage = async (event) => {
-        //     logContent.value += `${event.data}\n`;
-        //     await scrollToBottom();
-        // };
+        eventSource = new EventSource(sseURL());
+        eventSource.onmessage = async (event) => {
+            logContent.value += `${event.data}\n`;
+            await scrollToBottom();
+        };
 
-        // eventSource.onerror = (error) => {
-        //     console.error('SSE 连接出错:', error);
-        //     eventSource?.close();
-        // };
+        eventSource.onerror = (error) => {
+            console.error('SSE 连接出错:', error);
+            eventSource?.close();
+        };
 
     } catch (error) {
         console.error('获取项目资源失败:', error);
