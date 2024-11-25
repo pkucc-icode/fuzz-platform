@@ -52,16 +52,22 @@ const loading = ref<boolean>(false);
 const fileList = ref<UploadUserFile[]>([]);
 
 const route = useRoute();
-const { id } = route.query;
+const { id, command } = route.query;
 
 onMounted(async () => {
   if (id) {
     const project = await getProject(id as string);
     if (project) {
-      form.id = project.id;
+      if (command === 'new'){ // 用原项目信息新开一个项目
+        form.id = undefined;
+      }
+      else if (command === 'modify'){ // 修改原项目信息
+        form.id = project.id;
+      }
       form.name = project.name;
       form.repoUrl = project.repoUrl;
     }
+
   }
 })
 

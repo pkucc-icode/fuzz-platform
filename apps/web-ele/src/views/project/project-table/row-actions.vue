@@ -50,18 +50,9 @@ async function start(id: string) {
   router.push(`/analytics`);
 }
 
-// async function audit(data: any) {
-//   try {
-//     await codeAudit({id: data.id, name: data.name, repoUrl: data.repoUrl, filePath: data.filePath});
-//     ElMessage.success('操作成功');
-//     queryClient.invalidateQueries({
-//       queryKey: ["projects"]
-//     });
-//   } catch {
-//     ElMessage.error('提交失败');
-//   }
-//   router.push(`/analytics`);
-// }
+async function audit(id: string) {
+  router.replace(`/fuzz-admin/code-audit?id=${id}&command=new`)
+}
 
 async function stop(id: string) {
   try {
@@ -77,10 +68,10 @@ async function stop(id: string) {
                                                                                                  
 async function edit(id: string, type: string) {
   if(type==='openFuzz'){
-    router.push(`/fuzz-admin/fuzz-open?id=${id}`)
+    router.replace(`/fuzz-admin/fuzz-open?id=${id}&command=modify`)
   }
   else if(type==='sourceScan'){
-    router.push(`/fuzz-admin/code-audit?id=${id}`)
+    router.replace(`/fuzz-admin/code-audit?id=${id}&command=modify`)
   }
 }
 
@@ -120,7 +111,7 @@ async function remove(id: string) {
       <DropdownMenuSeparator  v-if="project.type==='openFuzz'" />
       <DropdownMenuItem @click="start(project.id)"  v-if="project.type==='openFuzz'" :disabled="project.status==='RUNNING'">重新Fuzz</DropdownMenuItem>
       <DropdownMenuSeparator  v-if="project.type==='openFuzz'" />
-      <DropdownMenuItem  v-if="project.type==='openFuzz'" :disabled="project.status==='RUNNING'">代码审计</DropdownMenuItem>
+      <DropdownMenuItem @click="audit(project.id)" v-if="project.type==='openFuzz'" :disabled="project.status==='RUNNING'">代码审计</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
