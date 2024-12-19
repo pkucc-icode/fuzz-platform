@@ -1,0 +1,1 @@
+pm2 start pnpm --name fuzz-web -- run dev

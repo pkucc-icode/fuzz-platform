@@ -1,6 +1,11 @@
 networks:
-  fba_network:
-    external: true
+  fuzz_network:
+    name: fuzz_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.10.0/24
     
 services:
   db:
@@ -11,7 +16,7 @@ services:
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
     networks:
-      - fba_network
+      - fuzz_network
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_PASSWORD=changethis
