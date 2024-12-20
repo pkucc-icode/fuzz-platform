@@ -12,8 +12,11 @@ import {
   ElInput,
   ElMessage,
   ElRow,
+  ElSwitch,
+  ElUpload,
   type FormInstance,
   type FormRules,
+  type UploadUserFile,
 } from 'element-plus';
 
 import { webFuzz } from '#/api';
@@ -21,13 +24,33 @@ import { router } from '#/router';
 
 interface RuleForm {
   name: string;
-  url: string;
+  filePath: string;
+  executionTime: string;
+  tokenRefreshInterval: string;
+  tokenRefreshCommand: string;
+  useSSL: boolean;
+  enableCheckers: string;
+  disableCheckers: string;
+  targetIp: string;
+  domain: string;
+  targetPort: string;
 }
 
 const form = reactive<RuleForm>({
   name: '',
-  url: '',
+  filePath: '',
+  executionTime: '',
+  tokenRefreshInterval: '',
+  tokenRefreshCommand: '',
+  useSSL: false,
+  enableCheckers: '',
+  disableCheckers: '',
+  targetIp: '',
+  domain: '',
+  targetPort: '',
 });
+
+const fileList = ref<UploadUserFile[]>([]);
 
 const rules = reactive<FormRules<RuleForm>>({
   name: [{ message: '请输入项目名', required: true, trigger: 'blur' }],
@@ -63,6 +86,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+const afterUpload = (response: any) => {
+  form.filePath = response.data[0].filepath;
+}
+
 </script>
 
 <template>
@@ -82,11 +109,46 @@ const resetForm = (formEl: FormInstance | undefined) => {
               <ElFormItem label="项目名" prop="name" label-position="left">
                 <ElInput v-model="form.name" placeholder="请输入项目名" />
               </ElFormItem>
-              <ElFormItem label="Web URL" prop="url" label-position="left">
-                <ElInput
-                  v-model="form.url"
-                  placeholder="请输入web地址"
-                />
+              <ElFormItem label="测试时间" label-position="left">
+                <ElInput v-model="form.executionTime" placeholder="Default 60s" />
+              </ElFormItem>
+              <ElFormItem label="源代码" label-position="left">
+                <ElUpload
+                  v-model:file-list="fileList"
+                  action="/api/upload"
+                  :on-success="afterUpload"
+                  accept="application/zip"
+                  class="upload-demo"
+                >
+                  <ElButton type="primary">点击上传代码</ElButton>
+                </ElUpload>
+              </ElFormItem>
+              <ElFormItem label="token刷新间隔" label-position="left">
+                <ElInput v-model="form.tokenRefreshInterval" placeholder="Default 60s" />
+              </ElFormItem>
+              <ElFormItem label="token刷新命令" label-position="left">
+                <ElInput v-model="form.tokenRefreshCommand" placeholder="" />
+              </ElFormItem>
+            </ElCol>
+
+            <ElCol :xs="18" :sm="16" :md="12" :lg="10" :xl="6">
+              <ElFormItem label="是否使用SSL" label-position="left">
+                <ElSwitch v-model="form.useSSL" placeholder="Example 122.33.33.2" />
+              </ElFormItem>
+              <ElFormItem label="开启漏洞类型检查" label-position="left">
+                <ElInput v-model="form.enableCheckers" placeholder="多个用空格分隔" />
+              </ElFormItem>
+              <ElFormItem label="关闭漏洞类型检查" label-position="left">
+                <ElInput v-model="form.disableCheckers" placeholder="多个用空格分隔" />
+              </ElFormItem>
+              <ElFormItem label="目标IP" label-position="left">
+                <ElInput v-model="form.targetIp" placeholder="Example 122.33.33.2" />
+              </ElFormItem>
+              <ElFormItem label="目标域名" label-position="left">
+                <ElInput v-model="form.domain" placeholder="Example www.ides.cn" />
+              </ElFormItem>
+              <ElFormItem label="目标端口" label-position="left">
+                <ElInput v-model="form.targetPort" placeholder="Example 80" />
               </ElFormItem>
               <div class="my-10">
                 <ElButton

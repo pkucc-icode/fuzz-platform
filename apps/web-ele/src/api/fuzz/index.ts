@@ -21,7 +21,16 @@ export namespace FuzzApi {
 
   export interface WebFuzzParams {
     name: string;
-    url?: string;
+    filePath: string;
+    executionTime: string;
+    tokenRefreshInterval: string;
+    tokenRefreshCommand: string;
+    useSSL: boolean;
+    enableCheckers: string;
+    disableCheckers: string;
+    targetIp: string;
+    domain: string;
+    targetPort: string;
   }
 
   export interface FuzzResult {
