@@ -83,7 +83,7 @@ const scrollToBottom = async () => {
           </CardContent>
         </Card>
         <Card class="mb-4" v-if="res?.type==='openFuzz'">
-          <CardHeader class="font-bold">FUZZ报告</CardHeader>
+          <CardHeader class="font-bold">源码FUZZ报告</CardHeader>
           <CardContent>
             <ElDescriptions :column="3">
                 <ElDescriptionsItem label="Bug总数">{{ res?.bugs }}</ElDescriptionsItem>
@@ -91,6 +91,22 @@ const scrollToBottom = async () => {
                 <ElDescriptionsItem label="状态">{{ res?.status }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="覆盖率">{{ res?.coverage }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="任务数量">{{ res?.taskCount }}</ElDescriptionsItem>
+            </ElDescriptions>
+          </CardContent>
+        </Card>
+        <Card class="mb-4" v-if="res?.type==='webFuzz'">
+          <CardHeader class="font-bold">WebFUZZ报告</CardHeader>
+          <CardContent>
+            <ElDescriptions :column="3">
+                <ElDescriptionsItem label="总共发现的bug数">{{ res?.result?.summary.total_buckets }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="当前覆盖的api请求">{{ res?.result?.summary.coverage.current }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="api总数">{{ res?.result?.summary.coverage.total }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="当前回应的请求">{{ res?.result?.summary.requests.rendered.current }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="总请求">{{ res?.result?.summary.requests.rendered.total }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="完全有效请求数（无资源创建失败）">{{ res?.result?.summary.requests.fully_valid }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="因无效序列未渲染的请求数">{{ res?.result?.summary.requests.invalid_due_to_sequences }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="因资源创建失败导致无效的请求数">{{ res?.result?.summary.requests.invalid_due_to_failed_creations }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="动态对象的创建总数">{{ res?.result?.summary.total_dyn_objects }}</ElDescriptionsItem>
             </ElDescriptions>
           </CardContent>
         </Card>

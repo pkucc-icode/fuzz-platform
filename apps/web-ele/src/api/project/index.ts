@@ -30,9 +30,39 @@ export namespace ProjectApi {
     }
   
     export interface ProjectReport {
-      coverage: string;
-      fuzzing_task_count: number;
-      total_bugs_found: number;
+      summary: {
+        total_buckets: string;
+        coverage: {
+          current: string;
+          total: string;
+        },
+        requests: {
+          rendered: {
+            current: string;
+            total: string;
+          };
+          valid: {
+            current: string;
+            total: string;
+          };
+          fully_valid: string;
+          invalid_due_to_sequences: string;
+          invalid_due_to_failed_creations: string;
+        },
+        total_dyn_objects: string;
+        total_requests_sent: {
+          gc: number;
+          main_driver: number;
+          LeakageRuleChecker: number;
+          ResourceHierarchyChecker: number;
+          UseAfterFreeChecker: number;
+          InvalidDynamicObjectChecker: number;
+          PayloadBodyChecker: number;
+          ExamplesChecker: number;
+          InvalidValueChecker: number;
+        };
+      };
+      bug_details: [];
     }
 
     export interface Scan {
