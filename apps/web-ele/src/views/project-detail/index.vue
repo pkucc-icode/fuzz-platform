@@ -99,7 +99,7 @@ const scrollToBottom = async () => {
             <BugTable :data="res?.projectBugs || []"/>
           </CardContent>
         </Card>
-        <Card class="mb-4" v-if="res?.type==='openFuzz'">
+        <Card class="mb-4">
           <CardHeader class="font-bold">日志</CardHeader>
           <CardContent>
             <pre ref="scrollArea" class="h-80 overflow-y-auto whitespace-pre-wrap text-sm p-3 rounded">{{ logContent }}</pre> 
