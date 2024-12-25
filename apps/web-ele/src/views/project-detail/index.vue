@@ -7,7 +7,7 @@ import { useRoute } from 'vue-router';
 import { getProject } from '#/api';
 import { type ProjectApi } from '#/api/project';
 import BugTable from './bug-table.vue';
-import ScanTable from './scan-table.vue';
+import ScanCard from './scan-card.vue';
 import { nextTick } from 'vue';
 import { Card, CardContent, CardHeader } from '@vben/common-ui';
 
@@ -96,8 +96,8 @@ const scrollToBottom = async () => {
         </Card>
         <Card class="mb-4" v-if="res?.type==='sourceScan'">
           <CardHeader class="font-bold">扫描结果</CardHeader>
-          <CardContent>
-            <ScanTable :data="res?.projectScans || []"/>
+          <CardContent class="flex flex-col flex-wrap gap-5">
+            <ScanCard v-for="item in res?.projectScans" :key="item.id" :data="item"/>
           </CardContent>
         </Card>
         <Card class="mb-4" v-else>
