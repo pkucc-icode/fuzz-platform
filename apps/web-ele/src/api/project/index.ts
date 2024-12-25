@@ -25,6 +25,7 @@ export namespace ProjectApi {
       param: FuzzParam;
       result: ProjectReport;
       projectBugs: Array<Bug>;
+      projectScans: Array<Scan>;
       authorId: string | null;
     }
   
@@ -32,6 +33,13 @@ export namespace ProjectApi {
       coverage: string;
       fuzzing_task_count: number;
       total_bugs_found: number;
+    }
+
+    export interface Scan {
+      id: string;
+      codeLine: string;
+      code: string;
+      type: string;
     }
   
     export interface Bug {
