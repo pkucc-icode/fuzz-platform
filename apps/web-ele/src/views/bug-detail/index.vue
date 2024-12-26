@@ -7,11 +7,13 @@ import { useRoute } from 'vue-router';
 import { getBugDetail, downloadCrash } from '#/api/bug/index';
 
 interface BugDetail {
+    type: string;
     desc: string;
     fix: string;
     codeText: string;
     report: string;
     crash: string;
+    detail: Record<string, any>;
 }
 
 const route = useRoute();
@@ -21,7 +23,11 @@ const res = ref<BugDetail>({
     fix: "",
     codeText:"",
     report:"",
-    crash:""
+    crash:"",
+    type: "",
+    detail: {
+
+    },
 })
 
 onMounted(async () => {
@@ -43,7 +49,33 @@ const getDownloadLink = () => {
 </script>
 
 <template>
-    <Page description="" title="Bug详细信息">
+    
+
+    <Page description="" title="Bug详细信息" v-if="res.type === 'webfuzz'">
+        <ElCard class="mb-4">
+            <template #header>
+                <div class="card-header">
+                    <span class="font-bold">Bug报告文件</span>
+                </div>
+            </template>
+            <pre>
+                {{ res.report }}
+            </pre>
+        </ElCard>
+
+        <ElCard class="mb-4">
+            <template #header>
+                <div class="card-header">
+                    <span class="font-bold">Bug复现文件</span>
+                </div>
+            </template>
+            <pre>
+                {{ res.crash }}
+            </pre>
+        </ElCard>
+    </Page>
+
+    <Page description="" title="Bug详细信息" v-else>
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">

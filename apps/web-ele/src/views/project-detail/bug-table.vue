@@ -16,6 +16,7 @@ import { router } from '#/router';
 
 interface BugTableProps {
     data: ProjectApi.Bug[];
+    type?: string;
 }
 
 const props = defineProps<BugTableProps>();
@@ -34,10 +35,11 @@ function linkType(risk: string) {
   if (risk === "中") return "warning";
   return "success";
 }
+
 </script>
 
 <template>
-  <Table>
+  <Table v-if="type === 'openFuzz'">
     <TableCaption>A list of your recent rows.</TableCaption>
     <TableHeader>
       <TableRow>
@@ -59,6 +61,29 @@ function linkType(risk: string) {
         <TableCell>{{ row.risk }}</TableCell>
         <TableCell>{{ row.firstTime }}</TableCell>
         <TableCell>{{ row.total }}</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+
+
+  <Table v-if="type === 'webFuzz'">
+    <TableCaption>A list of your recent rows.</TableCaption>
+    <TableHeader>
+      <TableRow>
+        <TableHead>
+          名称
+        </TableHead>
+        <TableHead>错误码</TableHead>
+        <TableHead>是否可复现</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      <TableRow v-for="row in props.data" :key="row.id">
+        <TableCell>
+          <ElLink :type="linkType(row.risk)" @click="view(row.id)">{{ row.name }}</ElLink>
+        </TableCell>
+        <TableCell>{{ row.detail["error_code"] }}</TableCell>
+        <TableCell>{{ row.detail["reproducible"] }}</TableCell>
       </TableRow>
     </TableBody>
   </Table>

@@ -82,6 +82,7 @@ export namespace ProjectApi {
       codeText: string;
       report: string;
       crash: string;
+      detail: Record<string, any>;
     }
   
 }
