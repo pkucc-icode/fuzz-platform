@@ -7,8 +7,8 @@ export namespace ProjectApi {
       repoUrl: string;
       compiler: string;
       fuzzTime: string;
-      fuzzTarget: string[];
-      fuzzCommands: string;
+      fuzzTarget: string;
+      fuzzCommands: string[];
       compilerSettings: string;
     };
 

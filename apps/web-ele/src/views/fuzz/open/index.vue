@@ -38,16 +38,16 @@ interface RuleForm {
   compilerSettings: string;
   fuzz: string;
   fuzzTime: string;
-  fuzzTarget: string[];
-  fuzzCommands: string;
+  fuzzTarget: string;
+  fuzzCommands: string[];
 }
 
 const form = reactive<RuleForm>({
   compiler: '',
   compilerSettings: '',
   fuzz: '',
-  fuzzCommands: '',
-  fuzzTarget: [''],
+  fuzzCommands: [''],
+  fuzzTarget: '',
   fuzzTime: '',
   name: '',
   repoUrl: '',
@@ -113,27 +113,27 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
-const removeTarget = (item: string) => {
-  const index = form.fuzzTarget.indexOf(item);
-  if (index !== -1) {
-    form.fuzzTarget.splice(index, 1);
-  }
-};
-
-const addTarget = () => {
-  form.fuzzTarget.push('');
-};
-
-// const removeCommand = (item: string) => {
-//   const index = form.fuzzCommands.indexOf(item);
+// const removeTarget = (item: string) => {
+//   const index = form.fuzzTarget.indexOf(item);
 //   if (index !== -1) {
-//     form.fuzzCommands.splice(index, 1);
+//     form.fuzzTarget.splice(index, 1);
 //   }
 // };
 
-// const addCommand = () => {
-//   form.fuzzCommands.push('');
+// const addTarget = () => {
+//   form.fuzzTarget.push('');
 // };
+
+const removeCommand = (item: string) => {
+  const index = form.fuzzCommands.indexOf(item);
+  if (index !== -1) {
+    form.fuzzCommands.splice(index, 1);
+  }
+};
+
+const addCommand = () => {
+  form.fuzzCommands.push('');
+};
 
 const afterUpload = (response: any) => {
   form.filePath = response.data[0].filepath;
@@ -191,7 +191,7 @@ const afterUpload = (response: any) => {
               <ElFormItem label="模糊测试时间" label-position="left">
                 <ElInput v-model="form.fuzzTime" placeholder="Default 60s" />
               </ElFormItem>
-              <ElFormItem
+              <!-- <ElFormItem
                 v-for="(item, index) in form.fuzzTarget"
                 :key="index"
                 label="模糊测试目标程序"
@@ -211,9 +211,9 @@ const afterUpload = (response: any) => {
                     @click.prevent="removeTarget(item)"
                   />
                 </ElSpace>
-              </ElFormItem>
-              <ElFormItem label="模糊测试命令" label-position="left">
-                <ElInput v-model="form.fuzzCommands" placeholder="Default 60s" />
+              </ElFormItem> -->
+              <ElFormItem label="模糊测试目标程序" label-position="left">
+                <ElInput v-model="form.fuzzTarget" placeholder="Default 60s" />
               </ElFormItem>
               
               <ElFormItem label="默认编译配置" label-position="left">
@@ -223,7 +223,7 @@ const afterUpload = (response: any) => {
                 />
               </ElFormItem>
 
-              <!-- <ElFormItem
+              <ElFormItem
                 v-for="(item, index) in form.fuzzCommands"
                 :key="index"
                 label="模糊测试命令"
@@ -243,7 +243,7 @@ const afterUpload = (response: any) => {
                     @click.prevent="removeCommand(item)"
                   />
                 </ElSpace>
-              </ElFormItem> -->
+              </ElFormItem>
               <div class="my-10">
                 <ElButton
                   :loading="loading"

@@ -14,8 +14,8 @@ export namespace FuzzApi {
     compilerSettings?: string;
     fuzz?: string;
     fuzzTime?: string;
-    fuzzTarget?: string[];
-    fuzzCommands?: string;
+    fuzzTarget?: string;
+    fuzzCommands?: string[];
     filePath?: string;
   }
 
