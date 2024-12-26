@@ -110,21 +110,20 @@ const afterUpload = (response: any) => {
                 <ElInput v-model="form.name" placeholder="请输入项目名" />
               </ElFormItem>
               <ElFormItem label="测试时间" label-position="left">
-                <ElInput v-model="form.executionTime" placeholder="Default 60s" />
+                <ElInput v-model="form.executionTime" placeholder="" />
               </ElFormItem>
               <ElFormItem label="源代码" label-position="left">
                 <ElUpload
                   v-model:file-list="fileList"
                   action="/api/upload"
                   :on-success="afterUpload"
-                  accept="application/zip"
                   class="upload-demo"
                 >
                   <ElButton type="primary">点击上传代码</ElButton>
                 </ElUpload>
               </ElFormItem>
               <ElFormItem label="token刷新间隔" label-position="left">
-                <ElInput v-model="form.tokenRefreshInterval" placeholder="Default 60s" />
+                <ElInput v-model="form.tokenRefreshInterval" placeholder="" />
               </ElFormItem>
               <ElFormItem label="token刷新命令" label-position="left">
                 <ElInput v-model="form.tokenRefreshCommand" placeholder="" />
@@ -142,13 +141,13 @@ const afterUpload = (response: any) => {
                 <ElInput v-model="form.disableCheckers" placeholder="多个用空格分隔" />
               </ElFormItem>
               <ElFormItem label="目标IP" label-position="left">
-                <ElInput v-model="form.targetIp" placeholder="Example 122.33.33.2" />
+                <ElInput v-model="form.targetIp" placeholder="127.0.0.1" />
               </ElFormItem>
               <ElFormItem label="目标域名" label-position="left">
-                <ElInput v-model="form.domain" placeholder="Example www.ides.cn" />
+                <ElInput v-model="form.domain" placeholder="127.0.0.1" />
               </ElFormItem>
               <ElFormItem label="目标端口" label-position="left">
-                <ElInput v-model="form.targetPort" placeholder="Example 80" />
+                <ElInput v-model="form.targetPort" placeholder="3000" />
               </ElFormItem>
               <div class="my-10">
                 <ElButton

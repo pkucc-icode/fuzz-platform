@@ -39,14 +39,14 @@ interface RuleForm {
   fuzz: string;
   fuzzTime: string;
   fuzzTarget: string[];
-  fuzzCommands: string[];
+  fuzzCommands: string;
 }
 
 const form = reactive<RuleForm>({
   compiler: '',
   compilerSettings: '',
   fuzz: '',
-  fuzzCommands: [''],
+  fuzzCommands: '',
   fuzzTarget: [''],
   fuzzTime: '',
   name: '',
@@ -124,16 +124,16 @@ const addTarget = () => {
   form.fuzzTarget.push('');
 };
 
-const removeCommand = (item: string) => {
-  const index = form.fuzzCommands.indexOf(item);
-  if (index !== -1) {
-    form.fuzzCommands.splice(index, 1);
-  }
-};
+// const removeCommand = (item: string) => {
+//   const index = form.fuzzCommands.indexOf(item);
+//   if (index !== -1) {
+//     form.fuzzCommands.splice(index, 1);
+//   }
+// };
 
-const addCommand = () => {
-  form.fuzzCommands.push('');
-};
+// const addCommand = () => {
+//   form.fuzzCommands.push('');
+// };
 
 const afterUpload = (response: any) => {
   form.filePath = response.data[0].filepath;
@@ -174,28 +174,14 @@ const afterUpload = (response: any) => {
                   <ElButton type="primary">点击上传代码</ElButton>
                 </ElUpload>
               </ElFormItem>
+              
               <ElFormItem label="编译器" label-position="left">
                 <ElInput
                   v-model="form.compiler"
                   placeholder="Default llvm-clang"
                 />
               </ElFormItem>
-              <ElFormItem label="默认编译配置" label-position="left">
-                <ElInput
-                  v-model="form.compilerSettings"
-                  placeholder="Default null"
-                />
-              </ElFormItem>
-              <div class="my-10">
-                <ElButton
-                  :loading="loading"
-                  type="primary"
-                  @click="onSubmit(ruleFormRef)"
-                >
-                  提交
-                </ElButton>
-                <ElButton plain @click="resetForm(ruleFormRef)">重置</ElButton>
-              </div>
+
             </ElCol>
 
             <ElCol :xs="18" :sm="16" :md="10" :lg="9" :xl="8">
@@ -226,7 +212,18 @@ const afterUpload = (response: any) => {
                   />
                 </ElSpace>
               </ElFormItem>
-              <ElFormItem
+              <ElFormItem label="模糊测试命令" label-position="left">
+                <ElInput v-model="form.fuzzCommands" placeholder="Default 60s" />
+              </ElFormItem>
+              
+              <ElFormItem label="默认编译配置" label-position="left">
+                <ElInput
+                  v-model="form.compilerSettings"
+                  placeholder="Default null"
+                />
+              </ElFormItem>
+
+              <!-- <ElFormItem
                 v-for="(item, index) in form.fuzzCommands"
                 :key="index"
                 label="模糊测试命令"
@@ -246,7 +243,17 @@ const afterUpload = (response: any) => {
                     @click.prevent="removeCommand(item)"
                   />
                 </ElSpace>
-              </ElFormItem>
+              </ElFormItem> -->
+              <div class="my-10">
+                <ElButton
+                  :loading="loading"
+                  type="primary"
+                  @click="onSubmit(ruleFormRef)"
+                >
+                  提交
+                </ElButton>
+                <ElButton plain @click="resetForm(ruleFormRef)">重置</ElButton>
+              </div>
             </ElCol>
           </ElRow>
           <!-- <ElRow :gutter="24" justify="center">

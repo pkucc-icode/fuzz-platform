@@ -8,7 +8,7 @@ export namespace ProjectApi {
       compiler: string;
       fuzzTime: string;
       fuzzTarget: string[];
-      fuzzCommands: string[];
+      fuzzCommands: string;
       compilerSettings: string;
     };
 
