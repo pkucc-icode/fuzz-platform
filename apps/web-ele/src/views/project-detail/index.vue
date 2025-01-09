@@ -117,7 +117,7 @@ const scrollToBottom = async () => {
           </CardContent>
         </Card>
         <Card class="mb-4" v-else>
-          <CardHeader class="font-bold">Bug列表</CardHeader>
+          <CardHeader class="font-bold">漏洞</CardHeader>
           <CardContent>
             <BugTable :data="res?.projectBugs || []" :type="res?.type"/>
           </CardContent>

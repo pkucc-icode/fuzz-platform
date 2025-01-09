@@ -51,7 +51,7 @@ const getDownloadLink = () => {
 <template>
     
 
-    <Page description="" title="Bug详细信息" v-if="res.type === 'webfuzz'">
+    <Page description="" title="漏洞详细信息" v-if="res.type === 'webfuzz'">
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
@@ -75,7 +75,7 @@ const getDownloadLink = () => {
         </ElCard>
     </Page>
 
-    <Page description="" title="Bug详细信息" v-else>
+    <Page description="" title="漏洞详细信息" v-else>
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">

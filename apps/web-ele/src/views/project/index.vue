@@ -13,6 +13,7 @@ import {
   SvgProjectIcon,
 } from '@vben/icons';
 import { ref, watchEffect } from 'vue';
+import AnalyticsVisitsData from './analytics-visits-data.vue';
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
 import ProjectTable from './project-table/index.vue'
 import { listProject } from '#/api';
@@ -70,16 +71,20 @@ watchEffect(() => {
 
 <template>
   <div class="p-5">
-    <AnalysisOverview :items="overviewItems" />
+    <div class="mt-5 w-full md:flex">
+        <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/2" title="漏洞类型分布">
+          <AnalyticsVisitsSource />
+        </AnalysisChartCard>
+        <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/2" title="扫描汇总">
+          <AnalyticsVisitsData />
+        </AnalysisChartCard>
+    </div>
+    
+    <AnalysisOverview :items="overviewItems" class="mt-5"/>
 
     <div class="mt-5 flex flex-col">
       <div class="mb-4 w-full">
         <ProjectTable />
-      </div>
-      <div class="w-full">
-        <AnalysisChartCard title="漏洞类型分布">
-          <AnalyticsVisitsSource />
-        </AnalysisChartCard>
       </div>
     </div>
   </div>
