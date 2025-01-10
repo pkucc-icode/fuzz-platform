@@ -46,11 +46,10 @@ const getDownloadLink = () => {
     }
     return link
 }
+
 </script>
 
 <template>
-    
-
     <Page description="" title="漏洞详细信息" v-if="res.type === 'webfuzz'">
         <ElCard class="mb-4">
             <template #header>
@@ -76,6 +75,30 @@ const getDownloadLink = () => {
     </Page>
 
     <Page description="" title="漏洞详细信息" v-else>
+     
+        <ElCard class="mb-4" v-if="res.stackList && res.stackList.length > 0">
+            <template #header>
+                <div class="card-header">
+                    <span class="font-bold">调用链</span>
+                </div>
+            </template>
+            <div class="chain-container">
+                <div v-for="(item, index) in res.stackList" :key="index" class="chain-row">
+                    <!-- 调用链条目 -->
+                    <div class="chain-box">
+                        {{ item }}
+                    </div>
+
+                    <!-- 箭头 -->
+                    <div v-if="index < res.stackList.length - 1" class="arrow-row">
+                        <div class="arrow">
+                            <span class="arrow-line"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ElCard>
+
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
@@ -91,6 +114,7 @@ const getDownloadLink = () => {
                 </p>
             </div>
         </ElCard>
+
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
@@ -101,16 +125,20 @@ const getDownloadLink = () => {
                 {{ res.codeText }}
             </pre>
         </ElCard>
+        
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
                     <span class="font-bold">报告</span>
                 </div>
             </template>
-            <pre>
-                {{ res.report }}
-            </pre>
+            <div class="scrollable-content">
+                <pre>
+                    {{ res.report }}
+                </pre>
+            </div>
         </ElCard>
+        
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
@@ -121,3 +149,82 @@ const getDownloadLink = () => {
         </ElCard>
     </Page>
 </template>
+
+<style scoped>
+.chain-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    background: linear-gradient(135deg, #1d1f27, #313642); /* 背景 */
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-family: 'Courier New', Courier, monospace;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.chain-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Ensures positioning of arrows works correctly */
+}
+
+.chain-box {
+    padding: 12px;
+    background: #2a2e39;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    white-space: pre-wrap;
+    word-break: break-word;
+    width: 100%;
+}
+
+.arrow-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px; /* 箭头的行高 */
+    position: absolute;
+    top: 100%; /* Position the arrow directly below the previous box */
+}
+
+.arrow {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.arrow-line {
+    width: 2px;
+    height: 20px; /* Make the line shorter to connect boxes */
+    background-color: #ff6363; /* 箭尾颜色 */
+    position: relative;
+    top: -14px; /* Adjust so the line fits perfectly between boxes */
+    left: -160px; /* Shift the line slightly to the left */
+}
+
+.arrow-line::after {
+    content: '';
+    position: absolute;
+    top: 6%; /* Arrow points down */
+    left: 50%;
+    transform: translateX(-50%) rotate(-135deg);
+    border: 10px solid transparent;
+    border-left: 6px solid #ff6363; /* 箭头尖端颜色 */
+    border-top: 6px solid #ff6363;
+}
+</style>
+
+<style scoped>
+.scrollable-content {
+    overflow-x: auto; 
+    white-space: pre; 
+}
+
+pre {
+    margin: 0;
+}
+</style>
