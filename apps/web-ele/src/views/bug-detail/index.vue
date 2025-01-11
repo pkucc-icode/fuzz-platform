@@ -14,6 +14,7 @@ interface BugDetail {
     report: string;
     crash: string;
     detail: Record<string, any>;
+    stackList: string[];
 }
 
 const route = useRoute();
@@ -28,6 +29,7 @@ const res = ref<BugDetail>({
     detail: {
 
     },
+    stackList: [],
 })
 
 onMounted(async () => {
@@ -75,29 +77,6 @@ const getDownloadLink = () => {
     </Page>
 
     <Page description="" title="漏洞详细信息" v-else>
-     
-        <ElCard class="mb-4" v-if="res.stackList && res.stackList.length > 0">
-            <template #header>
-                <div class="card-header">
-                    <span class="font-bold">调用链</span>
-                </div>
-            </template>
-            <div class="chain-container">
-                <div v-for="(item, index) in res.stackList" :key="index" class="chain-row">
-                    <!-- 调用链条目 -->
-                    <div class="chain-box">
-                        {{ item }}
-                    </div>
-
-                    <!-- 箭头 -->
-                    <div v-if="index < res.stackList.length - 1" class="arrow-row">
-                        <div class="arrow">
-                            <span class="arrow-line"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ElCard>
 
         <ElCard class="mb-4">
             <template #header>
@@ -124,6 +103,29 @@ const getDownloadLink = () => {
             <pre>
                 {{ res.codeText }}
             </pre>
+        </ElCard>
+
+        <ElCard class="mb-4" v-if="res.stackList && res.stackList.length > 0">
+            <template #header>
+                <div class="card-header">
+                    <span class="font-bold">调用链</span>
+                </div>
+            </template>
+            <div class="chain-container">
+                <div v-for="(item, index) in res.stackList" :key="index" class="chain-row">
+                    <!-- 调用链条目 -->
+                    <div class="chain-box">
+                        {{ item }}
+                    </div>
+
+                    <!-- 箭头 -->
+                    <div v-if="index < res.stackList.length - 1" class="arrow-row">
+                        <div class="arrow">
+                            <span class="arrow-line"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ElCard>
         
         <ElCard class="mb-4">

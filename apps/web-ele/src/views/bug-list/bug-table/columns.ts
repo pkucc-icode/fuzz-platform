@@ -6,7 +6,7 @@ import { Checkbox } from '@vben/common-ui';
 import { router } from '#/router';
 import ColumnHeader from './column-header.vue';
 import RowActions from './row-actions.vue';
-import { Loader, CirclePause, Check, CircleX } from 'lucide-vue-next';
+import { FilePenLine } from 'lucide-vue-next';
 import { tableDateFormat } from '#/utils/date';
 import { ElTag } from 'element-plus';
 
@@ -17,6 +17,10 @@ export interface Bug {
   type: string;
   risk: string;
   publicReport: string;
+  project: {
+    id: string;
+    name: string;
+  };
 }
 
 export const columns: ColumnDef<Bug>[] = [
@@ -42,7 +46,7 @@ export const columns: ColumnDef<Bug>[] = [
   {
     accessorKey: 'cve',
     cell: ({ row }) =>{
-      return h(ElTag, { class: 'lowercase', type: 'info' }, row.getValue('cve'))
+      return h('div', { class: 'lowercase', type: 'info' }, row.getValue('cve') || "Unknown")
     },
     header: ({ column }) =>
       h(ColumnHeader, {
@@ -58,7 +62,7 @@ export const columns: ColumnDef<Bug>[] = [
         class: 'lowercase cursor-pointer hover:underline',
         onClick: (e) => {
           e.preventDefault();
-          router.push(`/project-detail?id=${id}`);
+          router.push(`/bug-detail?id=${id}`);
         },
        }, row.getValue('name'));
     },
@@ -66,6 +70,24 @@ export const columns: ColumnDef<Bug>[] = [
       h(ColumnHeader, {
         column,
         title: '漏洞名',
+      }),
+  },
+  {
+    accessorKey: 'name',
+    cell: ({ row }) => {
+      const project = row.original.project;
+      return h('a', { 
+        class: 'lowercase cursor-pointer hover:underline',
+        onClick: (e) => {
+          e.preventDefault();
+          router.push(`/project-detail?id=${project.id}`);
+        },
+       }, project?.name);
+    },
+    header: ({ column }) =>
+      h(ColumnHeader, {
+        column,
+        title: '项目',
       }),
   },
   {
@@ -93,12 +115,35 @@ export const columns: ColumnDef<Bug>[] = [
   {
     accessorKey: 'publicReport',
     cell: ({ row }) => {
-      return h('div', { class: 'font-medium' }, row.getValue('publicReport'));
+      return h('a', { 
+        class: 'font-medium',
+        href: row.getValue('publicReport')
+      }, row.getValue('publicReport'));
     },
     header: ({ column }) =>
       h(ColumnHeader, {
         column,
         title: '漏洞公告',
+      }),
+  },
+
+  {
+    accessorKey: 'actions',
+    cell: ({ row }) => {
+      const id = row.original.id;
+      return h(FilePenLine, 
+        { 
+          class: 'font-medium cursor-pointer',
+          onClick: (e) => {
+            e.preventDefault();
+            router.push(`/bug-edit?id=${id}`);
+          },
+        }, row.getValue('risk'));
+    },
+    header: ({ column }) =>
+      h(ColumnHeader, {
+        column,
+        title: '操作',
       }),
   },
   

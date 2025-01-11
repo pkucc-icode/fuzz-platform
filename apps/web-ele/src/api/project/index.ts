@@ -88,7 +88,7 @@ export namespace ProjectApi {
 }
 
 export async function listProject() {
-  return requestClient.get('/project/list');
+  return requestClient.get<ProjectApi.ProjectDetail[]>('/project/list');
 }
 
 export async function getProject(id: string) {

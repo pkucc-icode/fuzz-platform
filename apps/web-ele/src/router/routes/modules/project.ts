@@ -32,6 +32,15 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.bug.detail'),
         },
       },
+      {
+        name: 'BugEdit',
+        path: '/bug-edit',
+        component: () => import('#/views/bug-edit/index.vue'),
+        meta: {
+          hideInMenu: true,
+          title: $t('编辑漏洞'),
+        },
+      },
     ],
   },
 ];

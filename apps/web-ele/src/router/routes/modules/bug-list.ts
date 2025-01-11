@@ -11,13 +11,13 @@ const routes: RouteRecordRaw[] = [
       order: 2,
       title: $t('漏洞清单'),
     },
-    name: '_CVEList',
-    path: '/cvelist',
+    name: '_BugList',
+    path: '/buglist',
     children: [
       {
-        name: 'CVEList',
-        path: '/cvelist',
-        component: () => import('#/views/cvelist/index.vue'),
+        name: 'BugList',
+        path: '/buglist',
+        component: () => import('#/views/bug-list/index.vue'),
         meta: {
           affixTab: true,
           hideInMenu: true, // 不在菜单中显示
