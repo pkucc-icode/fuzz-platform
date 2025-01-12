@@ -24,6 +24,10 @@ export async function editBug(data: any) {
     return requestClient.post('bug/edit', data);
 }
 
+export async function delBug(id: string) {
+    return requestClient.delete('bug/' + id);
+}
+
 
 export async function getBugDetail(id: string) {
     return requestClient.get<RuleDetail>(`/bug/${id}`);
