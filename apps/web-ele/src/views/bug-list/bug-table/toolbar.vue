@@ -36,12 +36,6 @@ const addBug = () => {
         placeholder="按照名称查找..."
         @input="table.getColumn('name')?.setFilterValue($event.target.value)"
       />
-      <FacetedFilter
-        v-if="table.getColumn('status')"
-        :column="table.getColumn('status')"
-        :options="status"
-        title="状态"
-      />
       <Button
         v-if="isFiltered"
         class="h-8 px-2 lg:px-3"

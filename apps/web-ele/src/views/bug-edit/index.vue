@@ -37,7 +37,7 @@ interface RuleForm {
   cve: string;
   type: string;
   risk: string;
-  projectId: string;
+  projectId: string | undefined;
   publicReport: string;
   report: string;
   crash: string;
@@ -52,7 +52,7 @@ const form = reactive<RuleForm>({
   cve: '',
   type: '',
   risk: "",
-  projectId: "",
+  projectId: undefined,
   publicReport: "",
   report: "",
   crash: "",
@@ -102,13 +102,13 @@ const onSubmit = async (formEl: FormInstance | undefined) => {
         } else {
           await addBug(form);
         }
+        ElMessage.success('操作成功');
+        router.push("/buglist")
       } catch {
         ElMessage.error('提交失败');
       } finally {
         loading.value = false;
       }
-      ElMessage.success('操作成功');
-      router.push("/buglist")
     } else {
       console.error('error submit!', fields);
       ElMessage.error('提交失败');
@@ -174,7 +174,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
                     <ElInput v-model="form.fix" placeholder="请输入修复意见" type="textarea"/>
                 </ElFormItem>
                 <ElFormItem label="漏洞公告" label-position="left">
-                    <ElInput v-model="form.publicReport" placeholder="请输入漏洞公告" />
+                    <ElInput v-model="form.publicReport" placeholder="请输入漏洞公告" type="textarea"/>
                 </ElFormItem>
                 <div class="my-10">
                   <ElButton

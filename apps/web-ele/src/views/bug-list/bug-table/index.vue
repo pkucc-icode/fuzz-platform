@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Project } from './columns';
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, provide } from 'vue';
 
 import { Card, CardContent } from '@vben/common-ui';
 
@@ -11,10 +11,11 @@ import { listBug } from '#/api';
 import { useQuery } from '@tanstack/vue-query';
 
 
-const { data } = useQuery({
+const { data, refetch } = useQuery({
     queryKey: ['bugs'],
     queryFn: listBug,
   });
+provide('refetch', refetch);
 </script>
 
 <template>

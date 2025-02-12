@@ -5,13 +5,8 @@ import { h } from 'vue';
 import { Checkbox } from '@vben/common-ui';
 import { router } from '#/router';
 import ColumnHeader from './column-header.vue';
-import RowActions from './row-actions.vue';
-import { FilePenLine, Trash } from 'lucide-vue-next';
-import { tableDateFormat } from '#/utils/date';
-import { delBug } from '#/api';
+import RowActions from './row-action.vue';
 import { ElTag } from 'element-plus';
-import { ElMessage } from 'element-plus';
-
 
 
 export interface Bug {
@@ -135,33 +130,9 @@ export const columns: ColumnDef<Bug>[] = [
     accessorKey: 'actions',
     cell: ({ row }) => {
       const id = row.original.id;
-      return h('div', 
-        { 
-          class: 'flex items-center space-x-2',
-        }, 
-        [
-          // FilePenLine 图标
-          h(FilePenLine, {
-            class: 'font-medium cursor-pointer',
-            onClick: (e) => {
-              e.preventDefault();
-              router.push(`/bug-edit?id=${id}`);
-            },
-          }, row.getValue('risk')),
-  
-          // Trash 图标
-          h(Trash, {
-            class: 'font-medium cursor-pointer', // 添加红色样式
-            onClick: async (e) =>  {
-              e.preventDefault();
-              // 在这里添加删除逻辑
-              console.log(`Delete item with id: ${id}`);
-              await delBug(id);
-              ElMessage.success('操作成功');
-            },
-          }),
-        ]
-      );
+      return h(RowActions, {
+        id,
+      });
     },
     header: ({ column }) =>
       h(ColumnHeader, {

@@ -50,7 +50,7 @@ const route = useRoute();
                 <ElDescriptionsItem label="项目总数量">{{ totalProjects }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="漏洞类型">{{ totalLouDongTypes }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="发现bug类型">{{ 12 }}</ElDescriptionsItem>
-                <ElDescriptionsItem label="漏洞编号数量">{{ totalCveTypes - 1  }}</ElDescriptionsItem> // 减去unknow
+                <ElDescriptionsItem label="漏洞编号数量">{{ totalCveTypes - 1  }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="发现bug数量">{{ totalBugs }}</ElDescriptionsItem>
             </ElDescriptions>
           </CardContent>
