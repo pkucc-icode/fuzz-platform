@@ -59,6 +59,15 @@ const scrollToBottom = async () => {
     scrollArea.value.scrollTop = scrollArea.value.scrollHeight;
   }
 };
+
+
+const getDownloadLink = () => {
+    let link = `/download/pdf/${id}`;
+    if (import.meta.env.VITE_GLOB_API_URL) {
+        link = `${import.meta.env.VITE_GLOB_API_URL}/download/pdf/${id}`;
+    }
+    return link
+}
 </script>
 
 <template>
@@ -91,6 +100,9 @@ const scrollToBottom = async () => {
                 <ElDescriptionsItem label="状态">{{ res?.status }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="覆盖率">{{ res?.coverage }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="任务数量">{{ res?.taskCount }}</ElDescriptionsItem>
+                <ElDescriptionsItem label="报告下载">
+                  <ElLink :href=getDownloadLink()>PDF</ElLink>
+                </ElDescriptionsItem>
             </ElDescriptions>
           </CardContent>
         </Card>
