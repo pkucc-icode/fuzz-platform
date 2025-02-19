@@ -112,7 +112,7 @@ const afterUpload = (response: any) => {
               <ElFormItem label="测试时间" label-position="left">
                 <ElInput v-model="form.executionTime" placeholder="" />
               </ElFormItem>
-              <ElFormItem label="源代码" label-position="left">
+              <ElFormItem label="配置文件" label-position="left">
                 <ElUpload
                   v-model:file-list="fileList"
                   action="/api/upload"
@@ -144,7 +144,7 @@ const afterUpload = (response: any) => {
                 <ElInput v-model="form.targetIp" placeholder="127.0.0.1" />
               </ElFormItem>
               <ElFormItem label="目标域名" label-position="left">
-                <ElInput v-model="form.domain" placeholder="127.0.0.1" />
+                <ElInput v-model="form.domain" placeholder="www.example.com" />
               </ElFormItem>
               <ElFormItem label="目标端口" label-position="left">
                 <ElInput v-model="form.targetPort" placeholder="3000" />

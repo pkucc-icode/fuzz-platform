@@ -171,7 +171,7 @@ const afterUpload = (response: any) => {
                   accept="application/zip"
                   class="upload-demo"
                 >
-                  <ElButton type="primary">点击上传代码</ElButton>
+                  <ElButton type="primary">点击上传配置文件</ElButton>
                 </ElUpload>
               </ElFormItem>
               
@@ -189,7 +189,7 @@ const afterUpload = (response: any) => {
                 <ElInput v-model="form.fuzz" placeholder="Default AFL++" />
               </ElFormItem>
               <ElFormItem label="模糊测试时间" label-position="left">
-                <ElInput v-model="form.fuzzTime" placeholder="Default 60s" />
+                <ElInput v-model="form.fuzzTime" placeholder="Default 7day" />
               </ElFormItem>
               <!-- <ElFormItem
                 v-for="(item, index) in form.fuzzTarget"
@@ -212,8 +212,8 @@ const afterUpload = (response: any) => {
                   />
                 </ElSpace>
               </ElFormItem> -->
-              <ElFormItem label="模糊测试目标程序" label-position="left">
-                <ElInput v-model="form.fuzzTarget" placeholder="Default 60s" />
+              <ElFormItem label="模糊测试命令" label-position="left">
+                <ElInput v-model="form.fuzzTarget" placeholder="ELF @@" />
               </ElFormItem>
               
               <ElFormItem label="默认编译配置" label-position="left">
@@ -226,7 +226,7 @@ const afterUpload = (response: any) => {
               <ElFormItem
                 v-for="(item, index) in form.fuzzCommands"
                 :key="index"
-                label="模糊测试命令"
+                label="模糊测试"
                 label-position="left"
               >
                 <ElSpace direction="horizontal">
