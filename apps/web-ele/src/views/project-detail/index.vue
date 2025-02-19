@@ -10,6 +10,8 @@ import BugTable from './bug-table.vue';
 import ScanCard from './scan-card.vue';
 import { nextTick } from 'vue';
 import { Card, CardContent, CardHeader } from '@vben/common-ui';
+import { Download } from 'lucide-vue-next';
+
 
 const res = ref<ProjectApi.ProjectDetail | null>(null)
 const route = useRoute();
@@ -101,7 +103,9 @@ const getDownloadLink = () => {
                 <ElDescriptionsItem label="覆盖率">{{ res?.coverage }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="任务数量">{{ res?.taskCount }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="报告下载">
-                  <ElLink :href=getDownloadLink()>PDF</ElLink>
+                  <ElLink :href=getDownloadLink()>
+                    <Download/>
+                  </ElLink>
                 </ElDescriptionsItem>
             </ElDescriptions>
           </CardContent>
