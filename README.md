@@ -43,6 +43,12 @@ Open the project in Gitpod (free online dev environment for GitHub) and start co
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vbenjs/vue-vben-admin)
 
+### Use Codeanywhere
+
+Open the project in Codeanywhere and start coding immediately.
+
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/vbenjs/vue-vben-admin)
+
 ## Documentation
 
 [Document](https://doc.vben.pro/)
