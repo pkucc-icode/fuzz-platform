@@ -100,7 +100,8 @@ const getDownloadLink = () => {
                     <span class="font-bold">源码</span>
                 </div>
             </template>
-            <pre>
+            <!-- whitespace-pre-wrap 当文本宽度超出 pre 标签的容器宽度时，文本会自动换行显示，而不会被截断 -->
+            <pre class="whitespace-pre-wrap">
                 {{ res.codeText }}
             </pre>
         </ElCard>
@@ -135,7 +136,7 @@ const getDownloadLink = () => {
                 </div>
             </template>
             <div class="scrollable-content">
-                <pre>
+                <pre class="whitespace-pre-wrap">
                     {{ res.report }}
                 </pre>
             </div>

@@ -43,6 +43,18 @@ export const columns: ColumnDef<Bug>[] = [
     id: 'select',
   },
   {
+    // 编号
+    accessorKey: 'yqid',
+    cell: ({ row }) =>{
+      return h('div', { type: 'info' }, row.getValue('yqid'))
+    },
+    header: ({ column }) =>
+      h(ColumnHeader, {
+        column,
+        title: '编号',
+      }),
+  },
+  {
     accessorKey: 'cve',
     cell: ({ row }) =>{
       return h('div', { class: 'lowercase', type: 'info' }, row.getValue('cve') || "Unknown")
