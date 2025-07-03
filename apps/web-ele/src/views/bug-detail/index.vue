@@ -7,14 +7,20 @@ import { useRoute } from 'vue-router';
 import { getBugDetail, downloadCrash } from '#/api/bug/index';
 
 interface BugDetail {
+<<<<<<< HEAD
     type: string;
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     desc: string;
     fix: string;
     codeText: string;
     report: string;
     crash: string;
+<<<<<<< HEAD
     detail: Record<string, any>;
     stackList: string[];
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 }
 
 const route = useRoute();
@@ -24,12 +30,16 @@ const res = ref<BugDetail>({
     fix: "",
     codeText:"",
     report:"",
+<<<<<<< HEAD
     crash:"",
     type: "",
     detail: {
 
     },
     stackList: [],
+=======
+    crash:""
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 })
 
 onMounted(async () => {
@@ -48,6 +58,7 @@ const getDownloadLink = () => {
     }
     return link
 }
+<<<<<<< HEAD
 
 </script>
 
@@ -78,6 +89,12 @@ const getDownloadLink = () => {
 
     <Page description="" title="漏洞详细信息" v-else>
 
+=======
+</script>
+
+<template>
+    <Page description="" title="Bug详细信息">
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
@@ -93,13 +110,17 @@ const getDownloadLink = () => {
                 </p>
             </div>
         </ElCard>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
                     <span class="font-bold">源码</span>
                 </div>
             </template>
+<<<<<<< HEAD
             <!-- whitespace-pre-wrap 当文本宽度超出 pre 标签的容器宽度时，文本会自动换行显示，而不会被截断 -->
             <pre class="whitespace-pre-wrap">
                 {{ res.codeText }}
@@ -129,12 +150,19 @@ const getDownloadLink = () => {
             </div>
         </ElCard>
         
+=======
+            <pre>
+                {{ res.codeText }}
+            </pre>
+        </ElCard>
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
                     <span class="font-bold">报告</span>
                 </div>
             </template>
+<<<<<<< HEAD
             <div class="scrollable-content">
                 <pre class="whitespace-pre-wrap">
                     {{ res.report }}
@@ -142,6 +170,12 @@ const getDownloadLink = () => {
             </div>
         </ElCard>
         
+=======
+            <pre>
+                {{ res.report }}
+            </pre>
+        </ElCard>
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
         <ElCard class="mb-4">
             <template #header>
                 <div class="card-header">
@@ -151,6 +185,7 @@ const getDownloadLink = () => {
             <ElLink :href=getDownloadLink()>下载</ElLink>
         </ElCard>
     </Page>
+<<<<<<< HEAD
 </template>
 
 <style scoped>
@@ -231,3 +266,6 @@ pre {
     margin: 0;
 }
 </style>
+=======
+</template>
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694

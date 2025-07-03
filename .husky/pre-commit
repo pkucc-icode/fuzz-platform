@@ -1,5 +1,9 @@
 # update `.vscode/vben-admin.code-workspace` file
+<<<<<<< HEAD
 # pnpm vsh code-workspace --auto-commit
+=======
+pnpm vsh code-workspace --auto-commit
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 
 # Format and submit code according to lintstagedrc.js configuration
 # pnpm exec lint-staged

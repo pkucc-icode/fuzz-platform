@@ -11,12 +11,19 @@ import { tableDateFormat } from '#/utils/date';
 import { ElTag } from 'element-plus';
 
 export interface Project {
+<<<<<<< HEAD
   id: string;
+=======
+  id: number;
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
   bugs: number;
   startTime: Date;
   status: string;
   name: string;
+<<<<<<< HEAD
   type: string;
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 }
 
 export const columns: ColumnDef<Project>[] = [

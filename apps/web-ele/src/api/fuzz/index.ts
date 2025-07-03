@@ -14,13 +14,18 @@ export namespace FuzzApi {
     compilerSettings?: string;
     fuzz?: string;
     fuzzTime?: string;
+<<<<<<< HEAD
     fuzzTarget?: string;
+=======
+    fuzzTarget?: string[];
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     fuzzCommands?: string[];
     filePath?: string;
   }
 
   export interface WebFuzzParams {
     name: string;
+<<<<<<< HEAD
     filePath: string;
     executionTime: string;
     tokenRefreshInterval: string;
@@ -31,6 +36,9 @@ export namespace FuzzApi {
     targetIp: string;
     domain: string;
     targetPort: string;
+=======
+    url?: string;
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
   }
 
   export interface FuzzResult {

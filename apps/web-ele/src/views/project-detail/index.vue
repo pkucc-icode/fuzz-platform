@@ -7,11 +7,16 @@ import { useRoute } from 'vue-router';
 import { getProject } from '#/api';
 import { type ProjectApi } from '#/api/project';
 import BugTable from './bug-table.vue';
+<<<<<<< HEAD
 import ScanCard from './scan-card.vue';
 import { nextTick } from 'vue';
 import { Card, CardContent, CardHeader } from '@vben/common-ui';
 import { Download } from 'lucide-vue-next';
 
+=======
+import { nextTick } from 'vue';
+import { Card, CardContent, CardHeader } from '@vben/common-ui';
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 
 const res = ref<ProjectApi.ProjectDetail | null>(null)
 const route = useRoute();
@@ -61,6 +66,7 @@ const scrollToBottom = async () => {
     scrollArea.value.scrollTop = scrollArea.value.scrollHeight;
   }
 };
+<<<<<<< HEAD
 
 
 const getDownloadLink = () => {
@@ -70,6 +76,8 @@ const getDownloadLink = () => {
     }
     return link
 }
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 </script>
 
 <template>
@@ -94,7 +102,11 @@ const getDownloadLink = () => {
           </CardContent>
         </Card>
         <Card class="mb-4" v-if="res?.type==='openFuzz'">
+<<<<<<< HEAD
           <CardHeader class="font-bold">源码FUZZ报告</CardHeader>
+=======
+          <CardHeader class="font-bold">FUZZ报告</CardHeader>
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
           <CardContent>
             <ElDescriptions :column="3">
                 <ElDescriptionsItem label="Bug总数">{{ res?.bugs }}</ElDescriptionsItem>
@@ -102,6 +114,7 @@ const getDownloadLink = () => {
                 <ElDescriptionsItem label="状态">{{ res?.status }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="覆盖率">{{ res?.coverage }}</ElDescriptionsItem>
                 <ElDescriptionsItem label="任务数量">{{ res?.taskCount }}</ElDescriptionsItem>
+<<<<<<< HEAD
                 <ElDescriptionsItem label="报告下载">
                   <ElLink :href=getDownloadLink()>
                     <Download/>
@@ -139,6 +152,18 @@ const getDownloadLink = () => {
           </CardContent>
         </Card>
         <Card class="mb-4">
+=======
+            </ElDescriptions>
+          </CardContent>
+        </Card>
+        <Card class="mb-4">
+          <CardHeader class="font-bold">Bug列表</CardHeader>
+          <CardContent>
+            <BugTable :data="res?.projectBugs || []"/>
+          </CardContent>
+        </Card>
+        <Card class="mb-4" v-if="res?.type==='openFuzz'">
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
           <CardHeader class="font-bold">日志</CardHeader>
           <CardContent>
             <pre ref="scrollArea" class="h-80 overflow-y-auto whitespace-pre-wrap text-sm p-3 rounded">{{ logContent }}</pre> 

@@ -32,6 +32,7 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.bug.detail'),
         },
       },
+<<<<<<< HEAD
       {
         name: 'BugEdit',
         path: '/bug-edit',
@@ -41,6 +42,8 @@ const routes: RouteRecordRaw[] = [
           title: $t('编辑漏洞'),
         },
       },
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     ],
   },
 ];

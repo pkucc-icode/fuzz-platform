@@ -16,7 +16,10 @@ import { router } from '#/router';
 
 interface BugTableProps {
     data: ProjectApi.Bug[];
+<<<<<<< HEAD
     type?: string;
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 }
 
 const props = defineProps<BugTableProps>();
@@ -35,11 +38,18 @@ function linkType(risk: string) {
   if (risk === "中") return "warning";
   return "success";
 }
+<<<<<<< HEAD
 
 </script>
 
 <template>
   <Table v-if="type === 'openFuzz'">
+=======
+</script>
+
+<template>
+  <Table>
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     <TableCaption>A list of your recent rows.</TableCaption>
     <TableHeader>
       <TableRow>
@@ -64,6 +74,7 @@ function linkType(risk: string) {
       </TableRow>
     </TableBody>
   </Table>
+<<<<<<< HEAD
 
 
   <Table v-if="type === 'webFuzz'">
@@ -87,4 +98,6 @@ function linkType(risk: string) {
       </TableRow>
     </TableBody>
   </Table>
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 </template>

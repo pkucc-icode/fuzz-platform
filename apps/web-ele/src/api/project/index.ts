@@ -7,7 +7,11 @@ export namespace ProjectApi {
       repoUrl: string;
       compiler: string;
       fuzzTime: string;
+<<<<<<< HEAD
       fuzzTarget: string;
+=======
+      fuzzTarget: string[];
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
       fuzzCommands: string[];
       compilerSettings: string;
     };
@@ -25,11 +29,15 @@ export namespace ProjectApi {
       param: FuzzParam;
       result: ProjectReport;
       projectBugs: Array<Bug>;
+<<<<<<< HEAD
       projectScans: Array<Scan>;
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
       authorId: string | null;
     }
   
     export interface ProjectReport {
+<<<<<<< HEAD
       summary: {
         total_buckets: string;
         coverage: {
@@ -70,6 +78,11 @@ export namespace ProjectApi {
       codeLine: string;
       code: string;
       type: string;
+=======
+      coverage: string;
+      fuzzing_task_count: number;
+      total_bugs_found: number;
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     }
   
     export interface Bug {
@@ -82,13 +95,20 @@ export namespace ProjectApi {
       codeText: string;
       report: string;
       crash: string;
+<<<<<<< HEAD
       detail: Record<string, any>;
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     }
   
 }
 
 export async function listProject() {
+<<<<<<< HEAD
   return requestClient.get<ProjectApi.ProjectDetail[]>('/project/list');
+=======
+  return requestClient.get('/project/list');
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 }
 
 export async function getProject(id: string) {

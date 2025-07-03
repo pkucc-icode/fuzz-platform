@@ -12,11 +12,16 @@ import {
   ElInput,
   ElMessage,
   ElRow,
+<<<<<<< HEAD
   ElSwitch,
   ElUpload,
   type FormInstance,
   type FormRules,
   type UploadUserFile,
+=======
+  type FormInstance,
+  type FormRules,
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 } from 'element-plus';
 
 import { webFuzz } from '#/api';
@@ -24,6 +29,7 @@ import { router } from '#/router';
 
 interface RuleForm {
   name: string;
+<<<<<<< HEAD
   filePath: string;
   executionTime: string;
   tokenRefreshInterval: string;
@@ -34,10 +40,14 @@ interface RuleForm {
   targetIp: string;
   domain: string;
   targetPort: string;
+=======
+  url: string;
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 }
 
 const form = reactive<RuleForm>({
   name: '',
+<<<<<<< HEAD
   filePath: '',
   executionTime: '',
   tokenRefreshInterval: '',
@@ -52,6 +62,11 @@ const form = reactive<RuleForm>({
 
 const fileList = ref<UploadUserFile[]>([]);
 
+=======
+  url: '',
+});
+
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 const rules = reactive<FormRules<RuleForm>>({
   name: [{ message: '请输入项目名', required: true, trigger: 'blur' }],
 });
@@ -86,10 +101,13 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+<<<<<<< HEAD
 const afterUpload = (response: any) => {
   form.filePath = response.data[0].filepath;
 }
 
+=======
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 </script>
 
 <template>
@@ -109,6 +127,7 @@ const afterUpload = (response: any) => {
               <ElFormItem label="项目名" prop="name" label-position="left">
                 <ElInput v-model="form.name" placeholder="请输入项目名" />
               </ElFormItem>
+<<<<<<< HEAD
               <ElFormItem label="测试时间" label-position="left">
                 <ElInput v-model="form.executionTime" placeholder="" />
               </ElFormItem>
@@ -148,6 +167,13 @@ const afterUpload = (response: any) => {
               </ElFormItem>
               <ElFormItem label="目标端口" label-position="left">
                 <ElInput v-model="form.targetPort" placeholder="3000" />
+=======
+              <ElFormItem label="Web URL" prop="url" label-position="left">
+                <ElInput
+                  v-model="form.url"
+                  placeholder="请输入web地址"
+                />
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
               </ElFormItem>
               <div class="my-10">
                 <ElButton

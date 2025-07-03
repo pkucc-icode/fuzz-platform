@@ -1,5 +1,6 @@
 import { requestClient } from '#/api/request';
 
+<<<<<<< HEAD
 export namespace BugApi {
 
     export interface BugCount {
@@ -42,6 +43,10 @@ export async function delBug(id: string) {
 
 export async function getBugDetail(id: string) {
     return requestClient.get<BugApi.RuleDetail>(`/bug/${id}`);
+=======
+export async function getBugDetail(id: string) {
+    return requestClient.get(`/bug/${id}`);
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
 }
 
 export async function downloadCrash(id: string) {

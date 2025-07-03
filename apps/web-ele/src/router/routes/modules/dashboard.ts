@@ -8,8 +8,13 @@ const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     meta: {
       icon: 'lucide:layout-dashboard',
+<<<<<<< HEAD
       order: 1,
       title: $t('任务概览'),
+=======
+      order: -1,
+      title: $t('page.dashboard.title'),
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     },
     name: 'Dashboard',
     path: '/',

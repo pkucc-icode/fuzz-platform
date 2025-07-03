@@ -9,8 +9,14 @@ const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
     meta: {
+<<<<<<< HEAD
       icon: 'lucide:file-plus',
       order: 3,
+=======
+      // badgeType: 'dot',
+      icon: 'lucide:file-plus',
+      order: 9999,
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
       title: $t('page.fuzz.title'),
     },
     name: 'FuzzProject',
@@ -43,6 +49,18 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.fuzz.close'),
         },
       },
+<<<<<<< HEAD
+=======
+      {
+        name: 'CodeAudit',
+        path: '/fuzz-admin/code-audit',
+        component: () => import('#/views/fuzz/audit/index.vue'),
+        meta: {
+          icon: 'icon-park-outline:audit',
+          title: $t('page.fuzz.audit'),
+        },
+      },
+>>>>>>> 9327addec79cb6ad385a3fa1ef864cecd81b6694
     ],
   },
 ];
