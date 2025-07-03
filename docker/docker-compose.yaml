@@ -1,0 +1,27 @@
+networks:
+  fuzz_network:
+    name: fuzz_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.10.0/24
+    
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
+    networks:
+      - fuzz_network
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=changethis
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=app
+
+volumes:
+  app-db-data:
