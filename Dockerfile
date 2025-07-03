@@ -21,11 +21,13 @@ RUN echo "Builder Success 🎉"
 FROM nginx:stable-alpine as production
 
 RUN echo "types { application/javascript js mjs; }" > /etc/nginx/conf.d/mjs.conf
-COPY --from=builder /app/playground/dist /usr/share/nginx/html
+
+COPY --from=builder /app/apps/web-ele/dist /usr/share/nginx/html
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 8080
+EXPOSE 80
+
 
 # start nginx
 CMD ["nginx", "-g", "daemon off;"]
